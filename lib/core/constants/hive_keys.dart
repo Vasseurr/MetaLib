@@ -1,0 +1,8 @@
+enum HiveKeys {
+  USERID,
+  USERNAME,
+  FIRSTNAME,
+  LASTNAME,
+  EMAIL,
+  PHONE,
+}
