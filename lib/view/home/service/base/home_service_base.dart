@@ -1,4 +1,4 @@
-import 'package:getx_starter/home/model/user.dart';
+import 'package:getx_starter/view/home/model/user.dart';
 
 abstract class HomeServiceBase {
   Future<User> getUser();

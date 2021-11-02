@@ -12,10 +12,12 @@ extension MediaQueryExtension on BuildContext {
   double get lowHeightValue => getHeight * 0.01;
   double get mediumHeightValue => getHeight * 0.05;
   double get highHeightValue => getHeight * 0.08;
+  double get topHeightValue => getHeight * 0.15;
 
   double get lowWidthValue => getWidth * 0.01;
   double get mediumWidthValue => getWidth * 0.05;
   double get highWidthValue => getWidth * 0.08;
+  double get topWidthValue => getWidth * 0.1;
 }
 
 extension ThemeExtension on BuildContext {
@@ -38,8 +40,10 @@ extension MarginExtension on BuildContext {
   EdgeInsets get marginHeightLow => EdgeInsets.all(lowHeightValue);
   EdgeInsets get marginHeightMedium => EdgeInsets.all(mediumHeightValue);
   EdgeInsets get marginHeightHigh => EdgeInsets.all(highHeightValue);
+  EdgeInsets get marginHeightMax => EdgeInsets.all(topHeightValue);
 
   EdgeInsets get marginWidthLow => EdgeInsets.all(lowWidthValue);
   EdgeInsets get marginWidthMedium => EdgeInsets.all(mediumWidthValue);
   EdgeInsets get marginWidthHigh => EdgeInsets.all(highWidthValue);
+  EdgeInsets get marginWidthMax => EdgeInsets.all(topWidthValue);
 }

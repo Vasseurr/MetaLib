@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:getx_starter/core/components/buttons/custom_button.dart';
 import 'package:getx_starter/core/extension/context_extension.dart';
 import 'package:getx_starter/core/routes/app_routes.dart';
-import 'package:getx_starter/home/controller/home_controller.dart';
+import 'package:getx_starter/view/home/controller/home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);

@@ -20,26 +20,44 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.blueAccent[400],
       body: Container(
-        height: context.getHeight,
-        margin: context.marginWidthHigh,
+        margin: EdgeInsets.only(
+            top: context.topHeightValue,
+            bottom: context.topHeightValue,
+            left: context.highWidthValue,
+            right: context.highWidthValue),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            header(context),
-            email(),
+            // header(context),
+            //logo
             spacer(context, 0.03, 1),
+            email(),
+            spacer(context, 0.05, 1),
             password(),
-            spacer(context, 0.015, 1),
+            spacer(context, 0.03, 1),
             forgotPassword(),
             remember(context),
-            spacer(context, 0.025, 1),
-            buttons(context),
-            spacer(context, 0.02, 1),
-            signUp(context)
+            spacer(context, 0.15, 1),
+            loginButton(context),
+            //buttons(context),
+            //spacer(context, 0.02, 1),
+            //signUp(context)
           ],
         ),
       ),
     );
+  }
+
+  RuzgarButton loginButton(BuildContext context) {
+    return RuzgarButton(
+        buttonText: "LOGIN",
+        fontSize: 16,
+        buttonColor: Colors.white,
+        textColor: Colors.blue[800]!,
+        height: context.getHeight * 0.07,
+        width: context.getWidth,
+        radius: 20,
+        onPressed: () {});
   }
 
   SizedBox signUp(BuildContext context) {

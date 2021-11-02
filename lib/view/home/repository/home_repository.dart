@@ -1,6 +1,6 @@
-import 'package:getx_starter/home/model/user.dart';
-import 'package:getx_starter/home/service/base/home_service_base.dart';
-import 'package:getx_starter/home/service/home_service.dart';
+import 'package:getx_starter/view/home/model/user.dart';
+import 'package:getx_starter/view/home/service/base/home_service_base.dart';
+import 'package:getx_starter/view/home/service/home_service.dart';
 
 class HomeRepository with HomeServiceBase {
   final HomeService _homeService;
