@@ -42,6 +42,7 @@ dependencies:
   hive_flutter: ^1.1.0
   dio: ^4.0.0
   font_awesome_flutter: ^9.1.0
+  animated_bottom_navigation_bar: ^0.3.2
 
 dev_dependencies:
   flutter_test:

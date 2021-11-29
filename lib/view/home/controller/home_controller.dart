@@ -7,13 +7,25 @@ class HomeController extends GetxController {
   final RxString _userName = "".obs;
   HomeController(this._repository) : assert(_repository != null);
 
-  get userName => _userName.value;
+  final _tabIndex = 0.obs;
+  final _isOpened = false.obs;
 
   set userName(value) => _userName.value = value;
+  get userName => _userName.value;
+
+  set tabIndex(value) => _tabIndex.value = value;
+  get tabIndex => _tabIndex.value;
+
+  set isOpened(value) => _isOpened.value;
+  get isOpened => _isOpened.value;
 
   getUser() async {
     var result = await _repository.getUser();
     _userName.value = result.name!;
+  }
+
+  void changeTabIndex(int index) {
+    tabIndex.value = index;
   }
 
   changeValue() {

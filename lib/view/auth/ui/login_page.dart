@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:getx_starter/core/components/buttons/custom_button.dart';
 import 'package:getx_starter/core/components/text/text_form_field.dart';
 import 'package:getx_starter/core/extension/context_extension.dart';
+import 'package:getx_starter/core/routes/app_routes.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -57,7 +59,9 @@ class _LoginPageState extends State<LoginPage> {
         height: context.getHeight * 0.07,
         width: context.getWidth,
         radius: 20,
-        onPressed: () {});
+        onPressed: () {
+          Get.toNamed(Routes.HOME);
+        });
   }
 
   SizedBox signUp(BuildContext context) {

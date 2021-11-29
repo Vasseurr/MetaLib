@@ -24,6 +24,10 @@ extension ThemeExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
   TextTheme get textTheme => theme.textTheme;
   ColorScheme get colors => theme.colorScheme;
+  Color get darkblue => const Color.fromRGBO(39, 59, 125, 1);
+  Color get lightGreen => const Color.fromRGBO(128, 205, 213, 1);
+  Color get bottomBarBackground => const Color.fromRGBO(4, 37, 144, 1);
+  Color get greyBackground => Colors.grey[200]!;
 }
 
 extension PaddingExtension on BuildContext {
