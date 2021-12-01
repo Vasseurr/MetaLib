@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPageTemp> {
   Column buttons(BuildContext context) {
     return Column(
       children: [
-        RuzgarButton(
+        VasseurrBttn(
             buttonText: "LOGIN",
             fontSize: 16,
             buttonColor: Colors.white,
@@ -175,7 +175,7 @@ class _LoginPageState extends State<LoginPageTemp> {
         const SizedBox(
           height: 10,
         ),
-        RuzgarTFF(
+        VasseurrTFF(
           // fillColor: Color(int.parse("0x1597E5")),
           fillColor: Colors.white12,
           textColor: Colors.white,
@@ -209,7 +209,7 @@ class _LoginPageState extends State<LoginPageTemp> {
         const SizedBox(
           height: 10,
         ),
-        RuzgarTFF(
+        VasseurrTFF(
           // fillColor: Color(int.parse("0x1597E5")),
           fillColor: Colors.white12,
           textColor: Colors.white,

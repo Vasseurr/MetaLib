@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:getx_starter/core/constants/colors.dart';
 import 'package:getx_starter/core/init/theme/light/color_scheme_light.dart';
 
-class RuzgarTFF extends StatelessWidget {
+class VasseurrTFF extends StatelessWidget {
   TextEditingController? textEditingController;
   int? maxLength;
   TextInputType? keyboardType;
@@ -27,7 +27,7 @@ class RuzgarTFF extends StatelessWidget {
   Function(String? value)? onSaved;
   String? Function(String? value)? validator;
 
-  RuzgarTFF(
+  VasseurrTFF(
       {Key? key,
       this.textEditingController,
       this.maxLength,

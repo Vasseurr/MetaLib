@@ -96,7 +96,7 @@ class RegisterPage extends GetView<HomeController> {
         ),
         const SizedBox(height: 16),
         Container(
-          child: RuzgarTFF(
+          child: VasseurrTFF(
             fillColor: Colors.white12,
             textColor: Colors.white,
             radius: 8,
@@ -133,7 +133,7 @@ class RegisterPage extends GetView<HomeController> {
         ),
         const SizedBox(height: 16),
         Container(
-          child: RuzgarTFF(
+          child: VasseurrTFF(
             fillColor: Colors.white12,
             textColor: Colors.white,
             radius: 8,
@@ -168,7 +168,7 @@ class RegisterPage extends GetView<HomeController> {
               textColor: Colors.white,
             )),
         const SizedBox(height: 16),
-        RuzgarTFF(
+        VasseurrTFF(
           // fillColor: Color(int.parse("0x1597E5")),
           fillColor: Colors.white12,
           textColor: Colors.white,
@@ -196,7 +196,7 @@ class RegisterPage extends GetView<HomeController> {
               textColor: Colors.white,
             )),
         const SizedBox(height: 16),
-        RuzgarTFF(
+        VasseurrTFF(
           // fillColor: Color(int.parse("0x1597E5")),
           fillColor: Colors.white12,
           textColor: Colors.white,
@@ -221,7 +221,7 @@ class RegisterPage extends GetView<HomeController> {
   }
 
   registerButton(BuildContext context) {
-    return RuzgarButton(
+    return VasseurrBttn(
         buttonText: "REGISTER",
         fontSize: 16,
         buttonColor: Colors.white,
