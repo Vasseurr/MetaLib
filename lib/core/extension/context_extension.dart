@@ -10,8 +10,8 @@ extension MediaQueryExtension on BuildContext {
   double get getWidth => mediaQuery.size.width;
 
   double get lowHeightValue => getHeight * 0.01;
-  double get mediumHeightValue => getHeight * 0.05;
-  double get highHeightValue => getHeight * 0.08;
+  double get mediumHeightValue => getHeight * 0.04;
+  double get highHeightValue => getHeight * 0.09;
   double get topHeightValue => getHeight * 0.15;
 
   double get lowWidthValue => getWidth * 0.01;
@@ -24,10 +24,11 @@ extension ThemeExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
   TextTheme get textTheme => theme.textTheme;
   ColorScheme get colors => theme.colorScheme;
-  Color get darkblue => const Color.fromRGBO(39, 59, 125, 1);
-  Color get lightGreen => const Color.fromRGBO(128, 205, 213, 1);
-  Color get bottomBarBackground => const Color.fromRGBO(4, 37, 144, 1);
-  Color get greyBackground => Colors.grey[200]!;
+  Color get specialRed => const Color.fromRGBO(129, 0, 0, 1);
+  Color get specialBrown => const Color.fromRGBO(66, 14, 7, 1);
+  Color get specialGreen => const Color.fromRGBO(0, 90, 7, 1);
+  Color get specialYellow => const Color.fromRGBO(236, 143, 0, 1);
+  Color get specialBlack => const Color.fromRGBO(41, 41, 41, 1);
 }
 
 extension PaddingExtension on BuildContext {

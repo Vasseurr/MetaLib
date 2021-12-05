@@ -5,7 +5,10 @@ import 'package:get/get.dart';
 import 'package:getx_starter/core/components/widgets/custom_scaffold_with_animated_fab.dart';
 import 'package:getx_starter/view/home/controller/home_controller.dart';
 import 'package:getx_starter/view/home/ui/home_page.dart';
+import 'package:getx_starter/view/home/ui/log.dart';
 import 'package:getx_starter/view/home/ui/profile.dart';
+
+import 'book.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -19,14 +22,13 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      type: 1,
       body: Obx(() => IndexedStack(
             index: _homeController.tabIndex,
             children: [
               //pages
               HomePage(),
-              ProfilePage(),
-              ProfilePage(),
+              Book(),
+              Log(),
               ProfilePage(),
             ],
           )),

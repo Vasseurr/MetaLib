@@ -76,27 +76,28 @@ class _SpecialFABButtonState extends State<SpecialFABButton>
   FloatingActionButton notificationButton() => FloatingActionButton(
       heroTag: "Notifications",
       onPressed: null,
-      backgroundColor: context.darkblue,
+      backgroundColor: context.specialRed,
       child: Icon(Icons.notification_add, size: 40));
   FloatingActionButton mailButton() => FloatingActionButton(
         heroTag: "Mail",
         onPressed: null,
-        backgroundColor: context.darkblue,
+        backgroundColor: context.specialRed,
         child: Icon(Icons.mail, size: 40),
       );
 
   FloatingActionButton personButton() => FloatingActionButton(
         heroTag: "Person",
         onPressed: null,
-        backgroundColor: context.darkblue,
+        backgroundColor: context.specialRed,
         child: Icon(Icons.person, size: 40),
       );
 
   mainFAB(BuildContext context) {
     return FloatingActionButton(
       onPressed: animate,
-      backgroundColor:
-          _homeController.isOpened == true ? context.darkblue : Colors.red,
+      backgroundColor: _homeController.isOpened == true
+          ? context.specialRed
+          : context.specialYellow,
       child: _homeController.isOpened == true ? mainFabIcon : Icon(Icons.close),
     );
   }
