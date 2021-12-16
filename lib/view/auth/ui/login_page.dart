@@ -27,24 +27,26 @@ class _LoginPageState extends State<LoginPage> {
             bottom: context.topHeightValue,
             left: context.highWidthValue,
             right: context.highWidthValue),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // header(context),
-            //logo
-            spacer(context, 0.03, 1),
-            email(),
-            spacer(context, 0.05, 1),
-            password(),
-            spacer(context, 0.03, 1),
-            forgotPassword(),
-            remember(context),
-            spacer(context, 0.15, 1),
-            loginButton(context),
-            //buttons(context),
-            //spacer(context, 0.02, 1),
-            //signUp(context)
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // header(context),
+              //logo
+              spacer(context, 0.03, 1),
+              email(),
+              spacer(context, 0.05, 1),
+              password(),
+              spacer(context, 0.03, 1),
+              forgotPassword(),
+              remember(context),
+              spacer(context, 0.15, 1),
+              loginButton(context),
+              //buttons(context),
+              //spacer(context, 0.02, 1),
+              //signUp(context)
+            ],
+          ),
         ),
       ),
     );

@@ -35,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
           textField("İsim", "Okan", context),
           textField("Soyisim", "Rüzgar", context),
           textField("E-posta", "okan@gmail.com", context),
-          textField("Telefon Numarası", "+90(538)8568569", context),
+          textField("Telefon Numarası", "+90 (538) 856 8569", context),
           textField("Adres", "Hürriyet Mahallesi 67/8 Bahçelievler/İstanbul",
               context),
           Spacer(),
