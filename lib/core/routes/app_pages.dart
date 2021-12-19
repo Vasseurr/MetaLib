@@ -18,7 +18,7 @@ class AppPages {
         binding: AuthBinding()),
     GetPage(
         name: Routes.REGISTER,
-        page: () => const RegisterPage(),
+        page: () => RegisterPage(),
         binding: AuthBinding()),
     GetPage(
         name: Routes.HOME, page: () => const Home(), binding: HomeBinding()),

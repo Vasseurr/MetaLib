@@ -1,11 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_starter/core/extension/context_extension.dart';
-import 'package:getx_starter/core/routes/app_routes.dart';
 import 'package:getx_starter/view/home/controller/home_controller.dart';
 
 class CustomScaffold extends StatefulWidget {
@@ -23,7 +21,8 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBar(context),
+        backgroundColor: Colors.transparent,
+        //  appBar: appBar(context),
         //  backgroundColor: context.specialBrown,
         /* floatingActionButton: FloatingActionButton(
           backgroundColor: context.bottomBarBackground,
@@ -74,7 +73,10 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             ),
           ],
         ),
-        body: widget.body);
+        body: Padding(
+          padding: EdgeInsets.only(top: 32.0),
+          child: widget.body,
+        ));
   }
 
   AppBar appBar(BuildContext context) {

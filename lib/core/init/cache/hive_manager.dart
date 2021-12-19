@@ -1,3 +1,4 @@
+import 'package:getx_starter/core/constants/hive_keys.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -19,7 +20,7 @@ class HiveManager {
     _db = await Hive.openBox('user');
   }
 
-  static Future<void> setStringValue(String key, String value) async {
+  static Future<void> setStringValue(HiveKeys key, String value) async {
     await _db.put(key.toString(), value);
   }
 

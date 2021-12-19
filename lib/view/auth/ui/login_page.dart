@@ -19,33 +19,40 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blueAccent[400],
-      body: Container(
-        margin: EdgeInsets.only(
-            top: context.topHeightValue,
-            bottom: context.topHeightValue,
-            left: context.highWidthValue,
-            right: context.highWidthValue),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // header(context),
-              //logo
-              spacer(context, 0.03, 1),
-              email(),
-              spacer(context, 0.05, 1),
-              password(),
-              spacer(context, 0.03, 1),
-              forgotPassword(),
-              remember(context),
-              spacer(context, 0.15, 1),
-              loginButton(context),
-              //buttons(context),
-              //spacer(context, 0.02, 1),
-              //signUp(context)
-            ],
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [context.specialRed, context.specialYellow])),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Container(
+          margin: EdgeInsets.only(
+              top: context.topHeightValue,
+              bottom: context.topHeightValue,
+              left: context.highWidthValue,
+              right: context.highWidthValue),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // header(context),
+                //logo
+                spacer(context, 0.03, 1),
+                email(),
+                spacer(context, 0.05, 1),
+                password(),
+                spacer(context, 0.03, 1),
+                forgotPassword(),
+                remember(context),
+                spacer(context, 0.15, 1),
+                loginButton(context),
+                //buttons(context),
+                //spacer(context, 0.02, 1),
+                //signUp(context)
+              ],
+            ),
           ),
         ),
       ),
@@ -54,10 +61,11 @@ class _LoginPageState extends State<LoginPage> {
 
   VasseurrBttn loginButton(BuildContext context) {
     return VasseurrBttn(
-        buttonText: "LOGIN",
-        fontSize: 16,
-        buttonColor: Colors.white,
-        textColor: Colors.blue[800]!,
+        buttonText: "GİRİŞ YAP",
+        fontSize: 20,
+        buttonColor: Colors.grey,
+        textColor: Colors.white,
+        borderColor: Colors.grey,
         height: context.getHeight * 0.07,
         width: context.getWidth,
         radius: 20,

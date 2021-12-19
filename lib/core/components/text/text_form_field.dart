@@ -86,9 +86,12 @@ class VasseurrTFF extends StatelessWidget {
           labelText: labelText,
           hintText: hintText,
           hintStyle: Theme.of(context).textTheme.caption?.copyWith(
-              fontSize: 15, fontWeight: FontWeight.w600, color: hintColor)),
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: hintColor,
+              fontStyle: FontStyle.italic)),
       style: TextStyle(
-          color: textColor, fontFamily: "Poppins", fontWeight: FontWeight.w500),
+          color: textColor, fontFamily: "Poppins", fontWeight: FontWeight.w400),
       onSaved: onSaved,
       validator: validator,
     );
