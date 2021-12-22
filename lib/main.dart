@@ -6,6 +6,8 @@ import 'package:getx_starter/core/routes/app_routes.dart';
 
 void main() async {
   await HiveManager.preferencesInit();
+  //await HiveManager.setStringValue(HiveKeys.USERID, " ");
+
   //await Hive.initFlutter();
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,

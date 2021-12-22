@@ -6,16 +6,13 @@ import 'package:getx_starter/core/components/buttons/custom_button.dart';
 import 'package:getx_starter/core/components/text/text_form_field.dart';
 import 'package:getx_starter/core/extension/context_extension.dart';
 import 'package:getx_starter/core/routes/app_routes.dart';
+import 'package:getx_starter/view/auth/controller/auth_controller.dart';
+import 'package:getx_starter/view/auth/model/DTO/login_dto.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
+class LoginPage extends GetView<AuthController> {
   bool rememberMe = false;
+  var _formKey = GlobalKey<FormState>();
+  LoginDto _loginDto = new LoginDto();
 
   @override
   Widget build(BuildContext context) {
@@ -30,28 +27,31 @@ class _LoginPageState extends State<LoginPage> {
         body: Container(
           margin: EdgeInsets.only(
               top: context.topHeightValue,
-              bottom: context.topHeightValue,
               left: context.highWidthValue,
               right: context.highWidthValue),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // header(context),
-                //logo
-                spacer(context, 0.03, 1),
-                email(),
-                spacer(context, 0.05, 1),
-                password(),
-                spacer(context, 0.03, 1),
-                forgotPassword(),
-                remember(context),
-                spacer(context, 0.15, 1),
-                loginButton(context),
-                //buttons(context),
-                //spacer(context, 0.02, 1),
-                //signUp(context)
-              ],
+            child: Form(
+              autovalidateMode: AutovalidateMode.always,
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // header(context),
+                  //logo
+                  spacer(context, 0.03, 1),
+                  username(),
+                  spacer(context, 0.05, 1),
+                  password(),
+                  spacer(context, 0.03, 1),
+                  forgotPassword(),
+                  // remember(context),
+                  spacer(context, 0.15, 1),
+                  loginButton(_loginDto, context),
+                  //buttons(context),
+                  spacer(context, 0.05, 1),
+                  signUp(context)
+                ],
+              ),
             ),
           ),
         ),
@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  VasseurrBttn loginButton(BuildContext context) {
+  VasseurrBttn loginButton(LoginDto _loginDTO, BuildContext context) {
     return VasseurrBttn(
         buttonText: "GİRİŞ YAP",
         fontSize: 20,
@@ -70,7 +70,10 @@ class _LoginPageState extends State<LoginPage> {
         width: context.getWidth,
         radius: 20,
         onPressed: () {
-          Get.toNamed(Routes.HOME);
+          if (_formKey.currentState!.validate()) {
+            _formKey.currentState!.save();
+            Get.find<AuthController>().login(_loginDTO, context);
+          }
         });
   }
 
@@ -81,14 +84,16 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            "Don't have an Account?",
+            "Hesabın yok mu, ",
             style: TextStyle(color: Colors.white, fontSize: 16),
           ),
           spacer(context, 0.02, 2),
           InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(Routes.REGISTER);
+              },
               child: const Text(
-                "Sign up",
+                "Kayıt Ol",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -177,9 +182,7 @@ class _LoginPageState extends State<LoginPage> {
               checkColor: Colors.blue,
               value: rememberMe,
               onChanged: (bool? value) {
-                setState(() {
-                  rememberMe = value!;
-                });
+                rememberMe = value!;
               },
             ),
             const Text(
@@ -198,7 +201,7 @@ class _LoginPageState extends State<LoginPage> {
         const Align(
             alignment: Alignment.topLeft,
             child: Text(
-              "Password",
+              "Şifre",
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
@@ -221,18 +224,19 @@ class _LoginPageState extends State<LoginPage> {
           obsecureText: true,
           hintText: "******",
           textInputAction: TextInputAction.done,
+          onSaved: (value) => _loginDto.password = value,
         )
       ],
     );
   }
 
-  Column email() {
+  Column username() {
     return Column(
       children: [
         const Align(
             alignment: Alignment.topLeft,
             child: Text(
-              "Email",
+              "Kullanıcı Adı",
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
@@ -252,9 +256,10 @@ class _LoginPageState extends State<LoginPage> {
           radius: 8,
           borderColor: Colors.white12,
           borderWidth: 0.5,
-          hintText: "Enter your Email",
+          hintText: "Kullanıcı Adı",
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
+          onSaved: (value) => _loginDto.userName = value,
         )
       ],
     );
@@ -271,7 +276,7 @@ class _LoginPageState extends State<LoginPage> {
       margin: context.marginHeightMedium,
       child: const Center(
         child: Text(
-          "Sign In",
+          "Giriş Yap",
           style: TextStyle(
               color: Colors.white, fontWeight: FontWeight.w800, fontSize: 20),
         ),

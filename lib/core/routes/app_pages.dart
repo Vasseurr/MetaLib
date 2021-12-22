@@ -13,15 +13,12 @@ import 'package:getx_starter/view/home/ui/profile.dart';
 class AppPages {
   static final pages = [
     GetPage(
-        name: Routes.LOGIN,
-        page: () => const LoginPage(),
-        binding: AuthBinding()),
+        name: Routes.LOGIN, page: () => LoginPage(), binding: AuthBinding()),
     GetPage(
         name: Routes.REGISTER,
         page: () => RegisterPage(),
         binding: AuthBinding()),
-    GetPage(
-        name: Routes.HOME, page: () => const Home(), binding: HomeBinding()),
+    GetPage(name: Routes.HOME, page: () => Home(), binding: HomeBinding()),
     GetPage(
         name: Routes.BOOK, page: () => const Book(), binding: HomeBinding()),
     GetPage(

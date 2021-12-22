@@ -51,8 +51,8 @@ class AuthController extends GetxController with StateMixin {
       await HiveManager.setStringValue(HiveKeys.ADDRESS, response.address!);
 
       //Utils.instance.showSnackBar(context, content: response.textFromApi!);
-      change(null, status: RxStatus.success());
       Get.offAndToNamed(Routes.HOME);
+      change(null, status: RxStatus.success());
     } else {
       change(null, status: RxStatus.error(response.textFromApi));
     }

@@ -11,15 +11,7 @@ import 'package:getx_starter/view/home/ui/profile.dart';
 
 import 'book.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  final HomeController _homeController = Get.find<HomeController>();
+class Home extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +22,7 @@ class _HomeState extends State<Home> {
               colors: [context.specialYellow, context.specialRed])),
       child: CustomScaffold(
         body: Obx(() => IndexedStack(
-              index: _homeController.tabIndex,
+              index: controller.tabIndex,
               children: [
                 //pages
                 HomePage(),

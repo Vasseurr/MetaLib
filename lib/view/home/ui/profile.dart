@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:getx_starter/core/components/buttons/custom_button.dart';
 import 'package:getx_starter/core/components/widgets/custom_scaffold_with_animated_fab.dart';
 import 'package:getx_starter/core/extension/context_extension.dart';
+import 'package:getx_starter/core/routes/app_routes.dart';
 import 'package:getx_starter/view/home/controller/home_controller.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -69,13 +70,17 @@ class _ProfilePageState extends State<ProfilePage> {
                               buttonText: "Giriş Yap",
                               buttonColor: context.specialBlack,
                               borderColor: context.specialBlack,
-                              onPressed: () {}),
+                              onPressed: () {
+                                Get.toNamed(Routes.LOGIN);
+                              }),
                           VasseurrBttn(
                               width: context.getWidth * 0.4,
                               buttonText: "Kayıt Ol",
                               buttonColor: context.specialBlack,
                               borderColor: context.specialBlack,
-                              onPressed: () {})
+                              onPressed: () {
+                                Get.toNamed(Routes.REGISTER);
+                              })
                         ],
                       ),
                     ));

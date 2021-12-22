@@ -78,6 +78,11 @@ class VasseurrTFF extends StatelessWidget {
             borderSide: BorderSide(color: borderColor, width: borderWidth),
           ),
           errorText: errorText,
+          errorStyle: const TextStyle(
+            color: Colors.white,
+            fontFamily: "Poppins",
+            fontWeight: FontWeight.w400,
+          ),
           labelStyle: TextStyle(
             color: labelColor,
             fontFamily: "Poppins",

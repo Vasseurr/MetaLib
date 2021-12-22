@@ -23,7 +23,7 @@ class HomeController extends GetxController {
   checkUserSession() {
     var user = HiveManager.getStringValue(HiveKeys.USERID);
 
-    if (user != null) return true;
+    if (user != " ") return true;
 
     return false;
   }
