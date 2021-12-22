@@ -20,24 +20,11 @@ class HomeController extends GetxController {
   set isOpened(value) => _isOpened.value;
   get isOpened => _isOpened.value;
 
-  getUser() async {
-    var result = await _repository.getUser();
-    _userName.value = result.name!;
-  }
+  checkUserSession() {
+    var user = HiveManager.getStringValue(HiveKeys.USERID);
 
-  void changeTabIndex(int index) {
-    tabIndex.value = index;
-  }
+    if (user != null) return true;
 
-  changeValue() {
-    userName = "Template";
-  }
-
-  saveUser() async {
-    HiveManager.setStringValue(HiveKeys.USERNAME, userName);
-  }
-
-  getFromHiveManager() {
-    return HiveManager.getStringValue('user');
+    return false;
   }
 }

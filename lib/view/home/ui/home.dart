@@ -25,8 +25,8 @@ class _HomeState extends State<Home> {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+              begin: Alignment.bottomRight,
+              end: Alignment.topLeft,
               colors: [context.specialRed, context.specialYellow])),
       child: CustomScaffold(
         body: Obx(() => IndexedStack(

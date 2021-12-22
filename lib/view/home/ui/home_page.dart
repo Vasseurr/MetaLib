@@ -16,22 +16,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      //APPBar eklenirse kaldır
-      padding: EdgeInsets.only(top: context.getHeight * 0.05),
-      child: GridView.builder(
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemBuilder: (context, index) {
-          return libraryBox();
-        },
-        padding: EdgeInsets.only(
-          top: context.getHeight * 0.05,
-          left: context.getWidth * 0.02,
-          right: context.getWidth * 0.02,
-        ),
-        itemCount: 6,
+    return GridView.builder(
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+      itemBuilder: (context, index) {
+        return libraryBox();
+      },
+      padding: EdgeInsets.only(
+        top: context.getHeight * 0.01,
+        left: context.getWidth * 0.02,
+        right: context.getWidth * 0.02,
       ),
+      itemCount: 6,
     );
   }
 

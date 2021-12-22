@@ -22,7 +22,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.transparent,
-        //  appBar: appBar(context),
+        appBar: appBar(context),
         //  backgroundColor: context.specialBrown,
         /* floatingActionButton: FloatingActionButton(
           backgroundColor: context.bottomBarBackground,
@@ -73,10 +73,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             ),
           ],
         ),
-        body: Padding(
-          padding: EdgeInsets.only(top: 32.0),
-          child: widget.body,
-        ));
+        body: widget.body);
   }
 
   AppBar appBar(BuildContext context) {
@@ -94,11 +91,18 @@ class _CustomScaffoldState extends State<CustomScaffold> {
       backgroundColor: context.specialRed,
       automaticallyImplyLeading: false,
       title: Center(
-        child: Text(
-          "METALIB",
-          style: TextStyle(color: Colors.white),
+        child: Row(
+          children: [
+            Spacer(),
+            Image.asset("assets/images/logo.png",
+                width: context.getWidth * 0.1,
+                height: context.getHeight * 0.05),
+            Text("MetaLib", style: TextStyle(fontWeight: FontWeight.bold)),
+            Spacer()
+          ],
         ),
       ),
+
       /*Align(
         alignment: Alignment.bottomLeft,
         child: Image.asset("assets/images/logo2.png",

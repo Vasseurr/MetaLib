@@ -24,7 +24,7 @@ class HiveManager {
     await _db.put(key.toString(), value);
   }
 
-  static String getStringValue(String key) => _db.get(key.toString());
+  static String? getStringValue(HiveKeys key) => _db.get(key.toString());
 
   void clear() {
     _db.clear();
