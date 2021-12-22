@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
           gradient: LinearGradient(
               begin: Alignment.bottomRight,
               end: Alignment.topLeft,
-              colors: [context.specialRed, context.specialYellow])),
+              colors: [context.specialYellow, context.specialRed])),
       child: CustomScaffold(
         body: Obx(() => IndexedStack(
               index: _homeController.tabIndex,
