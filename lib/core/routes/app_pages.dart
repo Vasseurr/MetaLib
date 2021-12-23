@@ -6,6 +6,7 @@ import 'package:getx_starter/view/auth/ui/login_page.dart';
 import 'package:getx_starter/view/auth/ui/register_page.dart';
 import 'package:getx_starter/view/home/bindings/home_binding.dart';
 import 'package:getx_starter/view/home/ui/book.dart';
+import 'package:getx_starter/view/home/ui/book_detail.dart';
 import 'package:getx_starter/view/home/ui/home.dart';
 import 'package:getx_starter/view/home/ui/log.dart';
 import 'package:getx_starter/view/home/ui/profile.dart';
@@ -23,8 +24,12 @@ class AppPages {
         name: Routes.BOOK, page: () => const Book(), binding: HomeBinding()),
     GetPage(
         name: Routes.PROFILE,
-        page: () => const ProfilePage(),
+        page: () => ProfilePage(),
         binding: HomeBinding()),
     GetPage(name: Routes.LOG, page: () => const Log(), binding: HomeBinding()),
+    GetPage(
+        name: Routes.BOOK_DETAIL,
+        page: () => BookDetail(),
+        binding: HomeBinding()),
   ];
 }

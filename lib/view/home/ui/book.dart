@@ -8,6 +8,7 @@ import 'package:getx_starter/core/constants/hive_keys.dart';
 import 'package:getx_starter/core/extension/context_extension.dart';
 import 'package:getx_starter/core/init/cache/hive_manager.dart';
 import 'package:getx_starter/core/routes/app_routes.dart';
+import 'package:getx_starter/view/home/controller/home_controller.dart';
 
 class Book extends StatefulWidget {
   const Book({Key? key}) : super(key: key);
@@ -114,6 +115,8 @@ class _BookState extends State<Book> {
         onTap: () {
           HiveManager.setStringValue(HiveKeys.BOOKID, index.toString());
           print(HiveManager.getStringValue(HiveKeys.BOOKID));
+          Get.find<HomeController>().bookId = index;
+          Get.toNamed(Routes.BOOK_DETAIL);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,

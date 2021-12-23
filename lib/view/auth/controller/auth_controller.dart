@@ -15,12 +15,19 @@ class AuthController extends GetxController with StateMixin {
   AuthController(this._authRepository) : assert(_authRepository != null);
 
   var _confirmPassword = "".obs;
+  var _isLoading = false.obs;
 
   set confirmPassword(value) {
     _confirmPassword.value = value;
   }
 
   get confirmPassword => _confirmPassword.value;
+
+  set isLoading(value) {
+    _isLoading.value = value;
+  }
+
+  get isLoading => _isLoading.value;
 
   register(RegisterDto registerDto, BuildContext context) async {
     change(null, status: RxStatus.loading());
@@ -39,7 +46,9 @@ class AuthController extends GetxController with StateMixin {
   }
 
   login(LoginDto loginDTO, BuildContext context) async {
-    change(null, status: RxStatus.loading());
+    //change(null, status: RxStatus.loading());
+    isLoading = true;
+
     var response = await _authRepository.login(loginDTO);
 
     if (response.status!) {
@@ -51,10 +60,10 @@ class AuthController extends GetxController with StateMixin {
       await HiveManager.setStringValue(HiveKeys.ADDRESS, response.address!);
 
       //Utils.instance.showSnackBar(context, content: response.textFromApi!);
+      //change(null, status: RxStatus.success());
+      isLoading = false;
       Get.offAndToNamed(Routes.HOME);
-      change(null, status: RxStatus.success());
-    } else {
-      change(null, status: RxStatus.error(response.textFromApi));
     }
+    isLoading = false;
   }
 }

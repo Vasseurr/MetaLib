@@ -4,6 +4,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_starter/core/extension/context_extension.dart';
+import 'package:getx_starter/core/routes/app_routes.dart';
 import 'package:getx_starter/view/home/controller/home_controller.dart';
 
 class CustomScaffold extends StatefulWidget {
@@ -20,60 +21,68 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: appBar(context),
-        //  backgroundColor: context.specialBrown,
-        /* floatingActionButton: FloatingActionButton(
-          backgroundColor: context.bottomBarBackground,
-          onPressed: () {},
-          child: Icon(Icons.settings),
-        ),*/
-        // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        bottomNavigationBar: BottomNavyBar(
-          backgroundColor: context.specialRed,
-          selectedIndex: _homeController.tabIndex,
-          onItemSelected: (index) => setState(() {
-            _homeController.tabIndex = index;
-            /* switch (index) {
-              case 0:
-                Get.offAndToNamed(Routes.HOME);
-                break;
-              case 1:
-                Get.toNamed(Routes.BOOK);
-                break;
-              case 2:
-                Get.toNamed(Routes.LOG);
-                break;
-              case 3:
-                Get.toNamed(Routes.PROFILE);
-                break;
-            }*/
-          }),
-          items: [
-            BottomNavyBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home', style: TextStyle(color: Colors.white)),
-              activeColor: context.specialYellow,
-            ),
-            BottomNavyBarItem(
-              icon: Icon(Icons.book),
-              title: Text('Book', style: TextStyle(color: Colors.white)),
-              activeColor: context.specialYellow,
-            ),
-            BottomNavyBarItem(
-              icon: Icon(Icons.donut_large_outlined),
-              title: Text('Log', style: TextStyle(color: Colors.white)),
-              activeColor: context.specialYellow,
-            ),
-            BottomNavyBarItem(
-              icon: Icon(Icons.person),
-              title: Text('Profile', style: TextStyle(color: Colors.white)),
-              activeColor: context.specialYellow,
-            ),
-          ],
-        ),
-        body: widget.body);
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.bottomRight,
+              end: Alignment.topLeft,
+              colors: [context.specialYellow, context.specialRed])),
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: appBar(context),
+          //  backgroundColor: context.specialBrown,
+          /* floatingActionButton: FloatingActionButton(
+            backgroundColor: context.bottomBarBackground,
+            onPressed: () {},
+            child: Icon(Icons.settings),
+          ),*/
+          // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+          bottomNavigationBar: BottomNavyBar(
+            backgroundColor: context.specialRed,
+            selectedIndex: _homeController.tabIndex,
+            onItemSelected: (index) => setState(() {
+              _homeController.tabIndex = index;
+              Get.toNamed(Routes.HOME);
+              /* switch (index) {
+                case 0:
+                  Get.offAndToNamed(Routes.HOME);
+                  break;
+                case 1:
+                  Get.toNamed(Routes.BOOK);
+                  break;
+                case 2:
+                  Get.toNamed(Routes.LOG);
+                  break;
+                case 3:
+                  Get.toNamed(Routes.PROFILE);
+                  break;
+              }*/
+            }),
+            items: [
+              BottomNavyBarItem(
+                icon: Icon(Icons.home),
+                title: Text('Home', style: TextStyle(color: Colors.white)),
+                activeColor: context.specialYellow,
+              ),
+              BottomNavyBarItem(
+                icon: Icon(Icons.book),
+                title: Text('Book', style: TextStyle(color: Colors.white)),
+                activeColor: context.specialYellow,
+              ),
+              BottomNavyBarItem(
+                icon: Icon(Icons.donut_large_outlined),
+                title: Text('Log', style: TextStyle(color: Colors.white)),
+                activeColor: context.specialYellow,
+              ),
+              BottomNavyBarItem(
+                icon: Icon(Icons.person),
+                title: Text('Profile', style: TextStyle(color: Colors.white)),
+                activeColor: context.specialYellow,
+              ),
+            ],
+          ),
+          body: widget.body),
+    );
   }
 
   AppBar appBar(BuildContext context) {

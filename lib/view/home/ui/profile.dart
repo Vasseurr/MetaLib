@@ -8,83 +8,85 @@ import 'package:getx_starter/core/extension/context_extension.dart';
 import 'package:getx_starter/core/routes/app_routes.dart';
 import 'package:getx_starter/view/home/controller/home_controller.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
-
-  @override
-  _ProfilePageState createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
+//class ProfilePage extends GetView<HomeController> {
+class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String imageLink =
         "https://www.seekpng.com/png/detail/1010-10108361_person-icon-circle.png";
-    return GetX<HomeController>(
-        initState: (state) {},
-        builder: (_) {
-          return Container(
-              margin: context.marginWidthLow,
-              child: _.checkUserSession() == true
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        /*SizedBox(
-            height: context.getHeight * 0.1,
-            width: context.getWidth * 0.25,
-            child: CircleAvatar(
-              radius: 30,
-              backgroundImage: NetworkImage(imageLink),
-            ),
-          ),*/
-                        Spacer(),
-                        textField("Kullanıcı Adı", "OkanRZGR", context),
-                        textField("İsim", "Okan", context),
-                        textField("Soyisim", "Rüzgar", context),
-                        textField("E-posta", "okan@gmail.com", context),
-                        textField(
-                            "Telefon Numarası", "+90 (538) 856 8569", context),
-                        textField(
-                            "Adres",
-                            "Hürriyet Mahallesi 67/8 Bahçelievler/İstanbul",
-                            context),
-                        Spacer(),
-                        Container(
-                            margin: EdgeInsets.only(
-                                left: context.getWidth * 0.15,
-                                right: context.getWidth * 0.15),
-                            child: VasseurrBttn(
-                                buttonText: "Çıkış Yap",
-                                buttonColor: context.specialBlack,
-                                borderColor: context.specialBlack,
-                                onPressed: () {})),
-                      ],
-                    )
-                  : Padding(
-                      padding: EdgeInsets.only(left: context.getWidth * 0.3),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          VasseurrBttn(
-                              width: context.getWidth * 0.4,
-                              buttonText: "Giriş Yap",
-                              buttonColor: context.specialBlack,
-                              borderColor: context.specialBlack,
-                              onPressed: () {
-                                Get.toNamed(Routes.LOGIN);
-                              }),
-                          VasseurrBttn(
-                              width: context.getWidth * 0.4,
-                              buttonText: "Kayıt Ol",
-                              buttonColor: context.specialBlack,
-                              borderColor: context.specialBlack,
-                              onPressed: () {
-                                Get.toNamed(Routes.REGISTER);
-                              })
-                        ],
-                      ),
-                    ));
-        });
+    return
+        //GetX<HomeController>(
+        //    initState: (state) {},
+        //    builder: (_) {
+        // return
+        Container(
+            margin: context.marginWidthLow,
+            child: Get.find<HomeController>().checkUserSession() == true
+                //child: _.checkUserSession() == true
+                ? infos(context)
+                : authButtons(context));
+
+    //   });
+  }
+
+  Column infos(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        /*SizedBox(
+          height: context.getHeight * 0.1,
+          width: context.getWidth * 0.25,
+          child: CircleAvatar(
+            radius: 30,
+            backgroundImage: NetworkImage(imageLink),
+          ),
+        ),*/
+        Spacer(),
+        textField("Kullanıcı Adı", "OkanRZGR", context),
+        textField("İsim", "Okan", context),
+        textField("Soyisim", "Rüzgar", context),
+        textField("E-posta", "okan@gmail.com", context),
+        textField("Telefon Numarası", "+90 (538) 856 8569", context),
+        textField(
+            "Adres", "Hürriyet Mahallesi 67/8 Bahçelievler/İstanbul", context),
+        Spacer(),
+        Container(
+            margin: EdgeInsets.only(
+                left: context.getWidth * 0.15, right: context.getWidth * 0.15),
+            child: VasseurrBttn(
+                buttonText: "Çıkış Yap",
+                buttonColor: context.specialBlack,
+                borderColor: context.specialBlack,
+                onPressed: () {})),
+      ],
+    );
+  }
+
+  Padding authButtons(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: context.getWidth * 0.3),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          VasseurrBttn(
+              width: context.getWidth * 0.4,
+              buttonText: "Giriş Yap",
+              buttonColor: context.specialBlack,
+              borderColor: context.specialBlack,
+              onPressed: () {
+                Get.toNamed(Routes.LOGIN);
+              }),
+          VasseurrBttn(
+              width: context.getWidth * 0.4,
+              buttonText: "Kayıt Ol",
+              buttonColor: context.specialBlack,
+              borderColor: context.specialBlack,
+              onPressed: () {
+                Get.toNamed(Routes.REGISTER);
+              })
+        ],
+      ),
+    );
   }
 
   Container textField(String fieldName, String value, BuildContext context) {

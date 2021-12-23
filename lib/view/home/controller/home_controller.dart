@@ -10,6 +10,7 @@ class HomeController extends GetxController {
 
   final _tabIndex = 0.obs;
   final _isOpened = false.obs;
+  final _bookId = 0.obs;
 
   set userName(value) => _userName.value = value;
   get userName => _userName.value;
@@ -17,13 +18,16 @@ class HomeController extends GetxController {
   set tabIndex(value) => _tabIndex.value = value;
   get tabIndex => _tabIndex.value;
 
-  set isOpened(value) => _isOpened.value;
+  set isOpened(value) => _isOpened.value = value;
   get isOpened => _isOpened.value;
+
+  set bookId(value) => _bookId.value = value;
+  get bookId => _bookId.value;
 
   checkUserSession() {
     var user = HiveManager.getStringValue(HiveKeys.USERID);
 
-    if (user != " ") return true;
+    if (user != null) return true;
 
     return false;
   }

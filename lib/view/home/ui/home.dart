@@ -14,24 +14,17 @@ import 'book.dart';
 class Home extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.bottomRight,
-              end: Alignment.topLeft,
-              colors: [context.specialYellow, context.specialRed])),
-      child: CustomScaffold(
-        body: Obx(() => IndexedStack(
-              index: controller.tabIndex,
-              children: [
-                //pages
-                HomePage(),
-                Book(),
-                Log(),
-                ProfilePage(),
-              ],
-            )),
-      ),
+    return CustomScaffold(
+      body: Obx(() => IndexedStack(
+            index: controller.tabIndex,
+            children: [
+              //pages
+              HomePage(),
+              Book(),
+              Log(),
+              ProfilePage(),
+            ],
+          )),
     );
   }
 }

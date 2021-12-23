@@ -8,6 +8,7 @@ import 'package:getx_starter/core/extension/context_extension.dart';
 import 'package:getx_starter/core/routes/app_routes.dart';
 import 'package:getx_starter/view/auth/controller/auth_controller.dart';
 import 'package:getx_starter/view/auth/model/DTO/login_dto.dart';
+import 'package:getx_starter/view/home/controller/home_controller.dart';
 
 class LoginPage extends GetView<AuthController> {
   bool rememberMe = false;
@@ -29,30 +30,37 @@ class LoginPage extends GetView<AuthController> {
               top: context.topHeightValue,
               left: context.highWidthValue,
               right: context.highWidthValue),
-          child: SingleChildScrollView(
-            child: Form(
-              autovalidateMode: AutovalidateMode.always,
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // header(context),
-                  //logo
-                  spacer(context, 0.03, 1),
-                  username(),
-                  spacer(context, 0.05, 1),
-                  password(),
-                  spacer(context, 0.03, 1),
-                  forgotPassword(),
-                  // remember(context),
-                  spacer(context, 0.15, 1),
-                  loginButton(_loginDto, context),
-                  //buttons(context),
-                  spacer(context, 0.05, 1),
-                  signUp(context)
-                ],
-              ),
-            ),
+          child: GetX<AuthController>(
+            initState: (state) {},
+            builder: (_) {
+              return _.isLoading == true
+                  ? Center(child: CircularProgressIndicator())
+                  : SingleChildScrollView(
+                      child: Form(
+                        autovalidateMode: AutovalidateMode.always,
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            // header(context),
+                            //logo
+                            spacer(context, 0.03, 1),
+                            username(),
+                            spacer(context, 0.05, 1),
+                            password(),
+                            spacer(context, 0.03, 1),
+                            forgotPassword(),
+                            // remember(context),
+                            spacer(context, 0.15, 1),
+                            loginButton(_loginDto, context),
+                            //buttons(context),
+                            spacer(context, 0.05, 1),
+                            signUp(context)
+                          ],
+                        ),
+                      ),
+                    );
+            },
           ),
         ),
       ),
