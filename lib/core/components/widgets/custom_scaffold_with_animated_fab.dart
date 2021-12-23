@@ -26,7 +26,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           gradient: LinearGradient(
               begin: Alignment.bottomRight,
               end: Alignment.topLeft,
-              colors: [context.specialYellow, context.specialRed])),
+              colors: [Colors.yellow.shade900, context.specialRed])),
       child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: appBar(context),
@@ -61,22 +61,23 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             items: [
               BottomNavyBarItem(
                 icon: Icon(Icons.home),
-                title: Text('Home', style: TextStyle(color: Colors.white)),
+                title: Text('Ana Sayfa', style: TextStyle(color: Colors.white)),
                 activeColor: context.specialYellow,
               ),
               BottomNavyBarItem(
                 icon: Icon(Icons.book),
-                title: Text('Book', style: TextStyle(color: Colors.white)),
+                title: Text('Kitaplar', style: TextStyle(color: Colors.white)),
                 activeColor: context.specialYellow,
               ),
               BottomNavyBarItem(
                 icon: Icon(Icons.donut_large_outlined),
-                title: Text('Log', style: TextStyle(color: Colors.white)),
+                title: Text('Log Bilgileri',
+                    style: TextStyle(color: Colors.white)),
                 activeColor: context.specialYellow,
               ),
               BottomNavyBarItem(
                 icon: Icon(Icons.person),
-                title: Text('Profile', style: TextStyle(color: Colors.white)),
+                title: Text('Profil', style: TextStyle(color: Colors.white)),
                 activeColor: context.specialYellow,
               ),
             ],

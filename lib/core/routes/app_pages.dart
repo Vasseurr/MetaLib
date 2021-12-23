@@ -26,7 +26,7 @@ class AppPages {
         name: Routes.PROFILE,
         page: () => ProfilePage(),
         binding: HomeBinding()),
-    GetPage(name: Routes.LOG, page: () => const Log(), binding: HomeBinding()),
+    GetPage(name: Routes.LOG, page: () => Log(), binding: HomeBinding()),
     GetPage(
         name: Routes.BOOK_DETAIL,
         page: () => BookDetail(),

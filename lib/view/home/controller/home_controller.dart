@@ -11,6 +11,7 @@ class HomeController extends GetxController {
   final _tabIndex = 0.obs;
   final _isOpened = false.obs;
   final _bookId = 0.obs;
+  var _isLoading = false.obs;
 
   set userName(value) => _userName.value = value;
   get userName => _userName.value;
@@ -23,6 +24,13 @@ class HomeController extends GetxController {
 
   set bookId(value) => _bookId.value = value;
   get bookId => _bookId.value;
+
+  set isLoading(value) {
+    _isLoading.value = value;
+  }
+
+  get isLoading => _isLoading.value;
+
 
   checkUserSession() {
     var user = HiveManager.getStringValue(HiveKeys.USERID);

@@ -1,11 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:getx_starter/core/components/widgets/custom_scaffold_with_animated_fab.dart';
-import 'package:getx_starter/core/constants/hive_keys.dart';
 import 'package:getx_starter/core/extension/context_extension.dart';
-import 'package:getx_starter/core/init/cache/hive_manager.dart';
 import 'package:getx_starter/view/home/controller/home_controller.dart';
 
 class BookDetail extends GetView<HomeController> {
@@ -60,7 +57,7 @@ class BookDetail extends GetView<HomeController> {
   Padding bookInfos(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          top: context.getHeight * 0.1, right: context.getWidth * 0.1),
+          top: context.getHeight * 0.05, right: context.getWidth * 0.1),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -70,9 +67,27 @@ class BookDetail extends GetView<HomeController> {
                   fontWeight: FontWeight.bold,
                   fontSize: 20)),
           SizedBox(height: context.getHeight * 0.03),
-          const Text("William Golding", style: TextStyle(color: Colors.white)),
+          const Text("Yazar: William Golding",
+              style: TextStyle(color: Colors.white)),
           SizedBox(height: context.getHeight * 0.03),
-          const Text("Roman", style: TextStyle(color: Colors.white)),
+          const Text("Tür: Roman", style: TextStyle(color: Colors.white)),
+          SizedBox(height: context.getHeight * 0.03),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text("Bulunduğu Kütüphaneler",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
+              SizedBox(height: context.getHeight * 0.03),
+              const Text("Fatih Kütüphanesi",
+                  style: TextStyle(
+                      color: Colors.white, fontStyle: FontStyle.italic)),
+              SizedBox(height: context.getHeight * 0.03),
+              const Text("Kadırga Kütüphanesi",
+                  style: TextStyle(
+                      color: Colors.white, fontStyle: FontStyle.italic)),
+            ],
+          )
         ],
       ),
     );
