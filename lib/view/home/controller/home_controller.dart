@@ -1,12 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:getx_starter/core/components/utils/utils.dart';
 import 'package:getx_starter/core/constants/hive_keys.dart';
 import 'package:getx_starter/core/init/cache/hive_manager.dart';
 import 'package:getx_starter/view/home/repository/home_repository.dart';
 
 class HomeController extends GetxController {
-  final HomeRepository _repository;
+  final HomeRepository _homeRepository;
   final RxString _userName = "".obs;
-  HomeController(this._repository) : assert(_repository != null);
+  HomeController(this._homeRepository) : assert(_homeRepository != null);
 
   final _tabIndex = 0.obs;
   final _isOpened = false.obs;
@@ -31,12 +33,23 @@ class HomeController extends GetxController {
 
   get isLoading => _isLoading.value;
 
-
   checkUserSession() {
     var user = HiveManager.getStringValue(HiveKeys.USERID);
 
     if (user != null) return true;
 
     return false;
+  }
+
+  getLibraries(BuildContext context) async {
+    _isLoading.value = true;
+
+    var response = await _homeRepository.getLibraries();
+
+    // Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    if (!response.status!) {
+      _isLoading.value = false;
+      Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    }
   }
 }

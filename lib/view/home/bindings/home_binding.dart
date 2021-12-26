@@ -10,7 +10,7 @@ class HomeBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<HomeController>(() {
-      return HomeController(HomeRepository(HomeService(Dio())));
+      return HomeController(HomeRepository(HomeService()));
     });
   }
 }

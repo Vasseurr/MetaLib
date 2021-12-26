@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:getx_starter/core/constants/app_constants.dart';
+import 'package:getx_starter/view/home/model/DAO/library_dao.dart';
 import 'package:getx_starter/view/home/model/user.dart';
 import 'package:http/http.dart' as http;
 
@@ -8,9 +11,10 @@ import 'base/home_service_base.dart';
 
 class HomeService with HomeServiceBase {
   // final http.Client httpClient;
-  final Dio _dio;
-
-  HomeService(this._dio);
+  late Response response;
+  final _dio = Dio(BaseOptions(
+      baseUrl: AppConstants.API_URL,
+      headers: {"Content-Type": "application/x-www-form-urlencoded"}));
 
   @override
   Future<User> getUser() async {
@@ -29,6 +33,22 @@ class HomeService with HomeServiceBase {
     } on DioError catch (e) {
       print(e.message);
       return user;
+    }
+  }
+
+  @override
+  Future<LibraryDao> getLibraries() async {
+    LibraryDao _libraryDao = new LibraryDao();
+
+    try {
+      response = await _dio.get("/api/libraries");
+
+      var decodedJson = json.decode(json.encode(response.data));
+      var result = LibraryDao.fromJson(decodedJson);
+      return result;
+    } on DioError catch (ex) {
+      debugPrint("Error login " + ex.message);
+      return _libraryDao;
     }
   }
 }
