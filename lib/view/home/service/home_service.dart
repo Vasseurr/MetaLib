@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:getx_starter/core/constants/app_constants.dart';
+import 'package:getx_starter/view/home/model/DAO/book_dao.dart';
 import 'package:getx_starter/view/home/model/DAO/library_dao.dart';
+import 'package:getx_starter/view/home/model/DAO/log_dao.dart';
 import 'package:getx_starter/view/home/model/user.dart';
 import 'package:http/http.dart' as http;
 
@@ -49,6 +51,38 @@ class HomeService with HomeServiceBase {
     } on DioError catch (ex) {
       debugPrint("Error login " + ex.message);
       return _libraryDao;
+    }
+  }
+
+  @override
+  Future<LogDao> getLogs(int userId) async {
+    LogDao _logDao = new LogDao();
+
+    try {
+      response = await _dio.get("/api/logs", queryParameters: {"id": userId});
+
+      var decodedJson = json.decode(json.encode(response.data));
+      var result = LogDao.fromJson(decodedJson);
+      return result;
+    } on DioError catch (ex) {
+      debugPrint("Error login " + ex.message);
+      return _logDao;
+    }
+  }
+
+  @override
+  Future<BookDao> getBooks() async {
+    BookDao _bookDao = new BookDao();
+
+    try {
+      response = await _dio.get("/api/books");
+
+      var decodedJson = json.decode(json.encode(response.data));
+      var result = BookDao.fromJson(decodedJson);
+      return result;
+    } on DioError catch (ex) {
+      debugPrint("Error login " + ex.message);
+      return _bookDao;
     }
   }
 }

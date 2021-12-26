@@ -52,4 +52,29 @@ class HomeController extends GetxController {
       Utils.instance.showSnackBar(context, content: response.textFromApi!);
     }
   }
+
+  getLogs(BuildContext context) async {
+    _isLoading.value = true;
+
+    var userId = HiveManager.getStringValue(HiveKeys.USERID);
+    var response = await _homeRepository.getLogs(int.parse(userId!));
+
+    // Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    if (!response.status!) {
+      _isLoading.value = false;
+      Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    }
+  }
+
+  getBooks(BuildContext context) async {
+    _isLoading.value = true;
+
+    var response = await _homeRepository.getBooks();
+
+    // Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    if (!response.status!) {
+      _isLoading.value = false;
+      Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    }
+  }
 }
