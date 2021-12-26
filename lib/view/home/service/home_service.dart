@@ -6,6 +6,8 @@ import 'package:getx_starter/core/constants/app_constants.dart';
 import 'package:getx_starter/view/home/model/DAO/book_dao.dart';
 import 'package:getx_starter/view/home/model/DAO/library_dao.dart';
 import 'package:getx_starter/view/home/model/DAO/log_dao.dart';
+import 'package:getx_starter/view/home/model/DTO/attend_library_dto.dart';
+import 'package:getx_starter/view/home/model/DAO/response_dao.dart';
 import 'package:getx_starter/view/home/model/user.dart';
 import 'package:http/http.dart' as http;
 
@@ -83,6 +85,23 @@ class HomeService with HomeServiceBase {
     } on DioError catch (ex) {
       debugPrint("Error login " + ex.message);
       return _bookDao;
+    }
+  }
+
+  @override
+  Future<ResponseDao> attendLibrary(AttendLibraryDto attendLibraryDto) async {
+    ResponseDao _responseDao = new ResponseDao();
+
+    try {
+      response = await _dio.post("/api/attendlibrary",
+          data: attendLibraryDto.toJson());
+
+      var decodedJson = json.decode(json.encode(response.data));
+      var result = ResponseDao.fromJson(decodedJson);
+      return result;
+    } on DioError catch (ex) {
+      debugPrint("Error login " + ex.message);
+      return _responseDao;
     }
   }
 }

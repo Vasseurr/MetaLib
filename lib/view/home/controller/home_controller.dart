@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:getx_starter/core/components/utils/utils.dart';
 import 'package:getx_starter/core/constants/hive_keys.dart';
 import 'package:getx_starter/core/init/cache/hive_manager.dart';
+import 'package:getx_starter/view/home/model/DTO/attend_library_dto.dart';
+import 'package:getx_starter/view/home/model/DTO/leave_library_dto.dart';
 import 'package:getx_starter/view/home/repository/home_repository.dart';
 
 class HomeController extends GetxController {
@@ -70,6 +72,46 @@ class HomeController extends GetxController {
     _isLoading.value = true;
 
     var response = await _homeRepository.getBooks();
+
+    // Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    if (!response.status!) {
+      _isLoading.value = false;
+      Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    }
+  }
+
+  attendLibrary(BuildContext context) async {
+    _isLoading.value = true;
+
+    AttendLibraryDto attendLibraryDto = new AttendLibraryDto();
+    attendLibraryDto.libId =
+        int.parse(HiveManager.getStringValue(HiveKeys.LIBRARYID)!);
+    attendLibraryDto.userId =
+        int.parse(HiveManager.getStringValue(HiveKeys.USERID)!);
+
+    var response = await _homeRepository.attendLibrary(attendLibraryDto);
+
+    // Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    if (!response.status!) {
+      _isLoading.value = false;
+      Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    }
+    else {
+      HiveManager.setStringValue(HiveKeys.LOGID, response.logId.toString());
+    }
+  }
+
+  leaveLibrary(BuildContext context) async {
+    _isLoading.value = true;
+
+    LeaveLibraryDto leaveLibraryDto = new LeaveLibraryDto();
+    leaveLibraryDto.libId =
+        int.parse(HiveManager.getStringValue(HiveKeys.LIBRARYID)!);
+    leaveLibraryDto.userId =
+        int.parse(HiveManager.getStringValue(HiveKeys.USERID)!);
+    leaveLibraryDto.logId = 
+
+    var response = await _homeRepository.attendLibrary(attendLibraryDto);
 
     // Utils.instance.showSnackBar(context, content: response.textFromApi!);
     if (!response.status!) {
