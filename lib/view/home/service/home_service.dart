@@ -6,6 +6,7 @@ import 'package:getx_starter/core/constants/app_constants.dart';
 import 'package:getx_starter/view/home/model/DAO/book_dao.dart';
 import 'package:getx_starter/view/home/model/DAO/library_dao.dart';
 import 'package:getx_starter/view/home/model/DAO/log_dao.dart';
+import 'package:getx_starter/view/home/model/DAO/search_dao.dart';
 import 'package:getx_starter/view/home/model/DTO/attend_library_dto.dart';
 import 'package:getx_starter/view/home/model/DAO/response_dao.dart';
 import 'package:getx_starter/view/home/model/DTO/leave_library_dto.dart';
@@ -120,6 +121,22 @@ class HomeService with HomeServiceBase {
     } on DioError catch (ex) {
       debugPrint("Error login " + ex.message);
       return _responseDao;
+    }
+  }
+
+  @override
+  Future<SearchDao> searchBooks(String text) async {
+    SearchDao _searchDao = new SearchDao();
+
+    try {
+      response = await _dio.post("/api/searchDao", data: text);
+
+      var decodedJson = json.decode(json.encode(response.data));
+      var result = SearchDao.fromJson(decodedJson);
+      return result;
+    } on DioError catch (ex) {
+      debugPrint("Error login " + ex.message);
+      return _searchDao;
     }
   }
 }

@@ -1,8 +1,11 @@
+// ignore_for_file: prefer_final_fields, unnecessary_new
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:getx_starter/core/components/utils/utils.dart';
 import 'package:getx_starter/core/constants/hive_keys.dart';
 import 'package:getx_starter/core/init/cache/hive_manager.dart';
+import 'package:getx_starter/view/home/model/DAO/search_dao.dart';
 import 'package:getx_starter/view/home/model/DTO/attend_library_dto.dart';
 import 'package:getx_starter/view/home/model/DTO/leave_library_dto.dart';
 import 'package:getx_starter/view/home/repository/home_repository.dart';
@@ -16,6 +19,8 @@ class HomeController extends GetxController {
   final _isOpened = false.obs;
   final _bookId = 0.obs;
   var _isLoading = false.obs;
+  var _searchResults = new SearchDao().obs;
+  var _isResultEmpty = false.obs;
 
   set userName(value) => _userName.value = value;
   get userName => _userName.value;
@@ -29,11 +34,14 @@ class HomeController extends GetxController {
   set bookId(value) => _bookId.value = value;
   get bookId => _bookId.value;
 
-  set isLoading(value) {
-    _isLoading.value = value;
-  }
-
+  set isLoading(value) => _isLoading.value = value;
   get isLoading => _isLoading.value;
+
+  set searchResults(value) => _searchResults.value = value;
+  get searchResults => _searchResults.value;
+
+  set isResultEmpty(value) => _isResultEmpty.value = value;
+  get isResultEmpty => _isResultEmpty.value;
 
   checkUserSession() {
     var user = HiveManager.getStringValue(HiveKeys.USERID);
@@ -117,6 +125,21 @@ class HomeController extends GetxController {
     if (!response.status!) {
       _isLoading.value = false;
       Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    }
+  }
+
+  searchBooks(String text) async {
+    _isLoading.value = true;
+
+    var response = await _homeRepository.searchBooks(text);
+
+    // Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    if (response.status!) {
+      _searchResults.value = response;
+      _isResultEmpty.value = false;
+      _isLoading.value = false;
+    } else {
+      _isResultEmpty.value = true;
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:getx_starter/view/home/model/DAO/book_dao.dart';
 import 'package:getx_starter/view/home/model/DAO/library_dao.dart';
 import 'package:getx_starter/view/home/model/DAO/log_dao.dart';
+import 'package:getx_starter/view/home/model/DAO/search_dao.dart';
 import 'package:getx_starter/view/home/model/DTO/attend_library_dto.dart';
 import 'package:getx_starter/view/home/model/DAO/response_dao.dart';
 import 'package:getx_starter/view/home/model/DTO/leave_library_dto.dart';
@@ -41,5 +42,10 @@ class HomeRepository with HomeServiceBase {
   @override
   Future<ResponseDao> leaveLibrary(LeaveLibraryDto leaveLibraryDto) async {
     return _homeService.leaveLibrary(leaveLibraryDto);
+  }
+
+  @override
+  Future<SearchDao> searchBooks(String text) async {
+    return _homeService.searchBooks(text);
   }
 }
