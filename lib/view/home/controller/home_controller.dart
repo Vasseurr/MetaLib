@@ -95,8 +95,7 @@ class HomeController extends GetxController {
     if (!response.status!) {
       _isLoading.value = false;
       Utils.instance.showSnackBar(context, content: response.textFromApi!);
-    }
-    else {
+    } else {
       HiveManager.setStringValue(HiveKeys.LOGID, response.logId.toString());
     }
   }
@@ -109,9 +108,10 @@ class HomeController extends GetxController {
         int.parse(HiveManager.getStringValue(HiveKeys.LIBRARYID)!);
     leaveLibraryDto.userId =
         int.parse(HiveManager.getStringValue(HiveKeys.USERID)!);
-    leaveLibraryDto.logId = 
+    leaveLibraryDto.logId =
+        int.parse(HiveManager.getStringValue(HiveKeys.LOGID)!);
 
-    var response = await _homeRepository.attendLibrary(attendLibraryDto);
+    var response = await _homeRepository.leaveLibrary(leaveLibraryDto);
 
     // Utils.instance.showSnackBar(context, content: response.textFromApi!);
     if (!response.status!) {

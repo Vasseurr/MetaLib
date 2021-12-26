@@ -3,6 +3,7 @@ import 'package:getx_starter/view/home/model/DAO/library_dao.dart';
 import 'package:getx_starter/view/home/model/DAO/log_dao.dart';
 import 'package:getx_starter/view/home/model/DTO/attend_library_dto.dart';
 import 'package:getx_starter/view/home/model/DAO/response_dao.dart';
+import 'package:getx_starter/view/home/model/DTO/leave_library_dto.dart';
 import 'package:getx_starter/view/home/model/user.dart';
 import 'package:getx_starter/view/home/service/base/home_service_base.dart';
 import 'package:getx_starter/view/home/service/home_service.dart';
@@ -35,5 +36,10 @@ class HomeRepository with HomeServiceBase {
   @override
   Future<ResponseDao> attendLibrary(AttendLibraryDto attendLibraryDto) async {
     return _homeService.attendLibrary(attendLibraryDto);
+  }
+
+  @override
+  Future<ResponseDao> leaveLibrary(LeaveLibraryDto leaveLibraryDto) async {
+    return _homeService.leaveLibrary(leaveLibraryDto);
   }
 }
