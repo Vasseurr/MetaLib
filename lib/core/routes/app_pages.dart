@@ -20,8 +20,7 @@ class AppPages {
         page: () => RegisterPage(),
         binding: AuthBinding()),
     GetPage(name: Routes.HOME, page: () => Home(), binding: HomeBinding()),
-    GetPage(
-        name: Routes.BOOK, page: () => const Book(), binding: HomeBinding()),
+    GetPage(name: Routes.BOOK, page: () => Books(), binding: HomeBinding()),
     GetPage(
         name: Routes.PROFILE,
         page: () => ProfilePage(),

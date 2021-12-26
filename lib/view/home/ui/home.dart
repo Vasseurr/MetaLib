@@ -20,7 +20,7 @@ class Home extends GetView<HomeController> {
             children: [
               //pages
               HomePage(),
-              Book(),
+              Books(),
               Log(),
               ProfilePage(),
             ],

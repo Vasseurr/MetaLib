@@ -7,10 +7,10 @@ import 'package:getx_starter/core/constants/hive_keys.dart';
 import 'package:getx_starter/core/init/cache/hive_manager.dart';
 import 'package:getx_starter/view/home/model/DAO/search_dao.dart';
 import 'package:getx_starter/view/home/model/DTO/attend_library_dto.dart';
+import 'package:getx_starter/view/home/model/DTO/book_dto.dart';
 import 'package:getx_starter/view/home/model/DTO/leave_library_dto.dart';
 import 'package:getx_starter/view/home/model/DTO/library_dto.dart';
 import 'package:getx_starter/view/home/repository/home_repository.dart';
-import 'package:getx_starter/view/home/ui/book.dart';
 import 'package:getx_starter/view/home/ui/log.dart';
 
 class HomeController extends GetxController {

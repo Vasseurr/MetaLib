@@ -10,46 +10,49 @@ import 'package:getx_starter/core/init/cache/hive_manager.dart';
 import 'package:getx_starter/core/routes/app_routes.dart';
 import 'package:getx_starter/view/home/controller/home_controller.dart';
 
-class Book extends StatefulWidget {
-  const Book({Key? key}) : super(key: key);
+class Books extends GetView<HomeController> {
+  Books({Key? key}) : super(key: key);
 
-  @override
-  _BookState createState() => _BookState();
-}
+  String searchText = "";
+  var _formKey = GlobalKey<FormState>();
 
-class _BookState extends State<Book> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        search(),
-        Flexible(
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return book(index);
-            },
-            padding: EdgeInsets.only(
-              top: context.getHeight * 0.02,
-              left: context.getWidth * 0.02,
-              right: context.getWidth * 0.02,
-            ),
-            itemCount: 6,
-          ),
-        ),
-      ],
+    return GetX<HomeController>(
+      initState: (state) {},
+      builder: (_) {
+        return //_.isLoading == true
+            // ? Center(child: CircularProgressIndicator())
+            //:
+            Column(
+          children: [
+            search(context),
+            _.isLoading == false
+                ? Flexible(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return book(_, context, index);
+                      },
+                      padding: EdgeInsets.only(
+                        top: context.getHeight * 0.02,
+                        left: context.getWidth * 0.02,
+                        right: context.getWidth * 0.02,
+                      ),
+                      itemCount: _.books.length,
+                    ),
+                  )
+                : Center(child: CircularProgressIndicator())
+          ],
+        );
+      },
     );
   }
 
-  search() {
+  search(BuildContext context) {
     return Container(
       color: Colors.white,
       height: context.getHeight * 0.08,
       width: context.getWidth,
-      /* padding: EdgeInsets.only(
-          top: context.getHeight * 0.01,
-          bottom: context.getHeight * 0.01,
-          right: context.getWidth * 0.03,
-          left: context.getWidth * 0.03),*/
       child: Row(
         children: [
           Expanded(
@@ -59,17 +62,27 @@ class _BookState extends State<Book> {
                 Expanded(
                   flex: 5,
                   child: Center(
-                    child: VasseurrTFF(
-                      borderColor: Colors.white,
-                      fillColor: Colors.white,
-                      hintColor: context.specialBrown,
-                      hintText: "Kitap Ara",
+                    child: Form(
+                      autovalidateMode: AutovalidateMode.always,
+                      key: _formKey,
+                      child: VasseurrTFF(
+                        borderColor: Colors.white,
+                        fillColor: Colors.white,
+                        hintColor: context.specialBrown,
+                        hintText: "Kitap Ara",
+                        onSaved: (value) => searchText = value!,
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+                        Get.find<HomeController>().searchBooks(searchText);
+                      }
+                    },
                     child: Icon(Icons.search, color: context.specialBrown),
                   ),
                 ),
@@ -81,31 +94,9 @@ class _BookState extends State<Book> {
     );
   }
 
-  Widget bookCard(int index) {
-    String path =
-        "https://upload.wikimedia.org/wikipedia/tr/thumb/3/3a/Sineklerintanrisi.jpg/220px-Sineklerintanrisi.jpg";
-    return Container(
-      margin: context.marginWidthLow,
-      decoration: BoxDecoration(
-          border: Border.all(color: context.specialYellow, width: 2)),
-      child: InkWell(
-        onTap: () {
-          HiveManager.setStringValue(HiveKeys.BOOKID, index.toString());
-          print(HiveManager.getStringValue(HiveKeys.BOOKID));
-        },
-        child: Column(
-          children: [
-            Flexible(child: Image.network(path)),
-            Flexible(child: Text("Sineklerin Tanrısı")),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget book(int index) {
-    String path =
-        "https://upload.wikimedia.org/wikipedia/tr/thumb/3/3a/Sineklerintanrisi.jpg/220px-Sineklerintanrisi.jpg";
+  Widget book(HomeController _, BuildContext context, int index) {
+    /*String path =
+        "https://upload.wikimedia.org/wikipedia/tr/thumb/3/3a/Sineklerintanrisi.jpg/220px-Sineklerintanrisi.jpg";*/
     return Container(
       margin: EdgeInsets.only(bottom: context.getHeight * 0.02),
       padding: EdgeInsets.only(bottom: context.getHeight * 0.02),
@@ -115,7 +106,7 @@ class _BookState extends State<Book> {
         onTap: () {
           HiveManager.setStringValue(HiveKeys.BOOKID, index.toString());
           print(HiveManager.getStringValue(HiveKeys.BOOKID));
-          Get.find<HomeController>().bookId = index;
+          //  Get.find<HomeController>().bookId = index;
           Get.toNamed(Routes.BOOK_DETAIL);
         },
         child: Row(
@@ -129,7 +120,7 @@ class _BookState extends State<Book> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: Image.network(
-                  path,
+                  _.books[index].imagePath,
                   height: context.getHeight * 0.2,
                 ),
               ),
@@ -139,20 +130,21 @@ class _BookState extends State<Book> {
             ),
             Flexible(
                 child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.start,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                Text("Sineklerin Tanrısı",
+                Text(_.books[index].name,
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 20)),
+                        fontSize: 19)),
                 SizedBox(height: context.getHeight * 0.03),
-                Text("William Golding", style: TextStyle(color: Colors.white)),
+                Text(_.books[index].author,
+                    style: TextStyle(color: Colors.white)),
                 SizedBox(height: context.getHeight * 0.03),
                 Text(
-                  "Roman",
-                  style: TextStyle(color: Colors.white),
+                  _.books[index].belongLibName,
+                  style: TextStyle(color: Colors.white, fontSize: 13),
                 ),
               ],
             )),

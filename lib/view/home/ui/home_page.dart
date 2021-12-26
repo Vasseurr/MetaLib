@@ -10,17 +10,23 @@ import 'package:getx_starter/view/home/controller/home_controller.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class HomePage extends GetView<HomeController> {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+
+  HomeController _ = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
     return GetX<HomeController>(
       initState: (state) async {
-        await Get.find<HomeController>().getLibraries(context);
+        await _.getLibraries(context);
+        await _.getBooks(context);
+        if (_.checkUserSession() == true) {
+          await _.getLogs(context);
+        }
       },
       builder: (_) {
         return _.isLoading == true
-            ? Center(child: CustomScrollView())
+            ? Center(child: CircularProgressIndicator())
             : Padding(
                 padding: EdgeInsets.only(top: context.getHeight * 0.05),
                 child: GridView.builder(

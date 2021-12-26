@@ -129,7 +129,8 @@ class HomeService with HomeServiceBase {
     SearchDao _searchDao = new SearchDao();
 
     try {
-      response = await _dio.post("/api/searchDao", data: text);
+      response =
+          await _dio.post("/api/search", queryParameters: {"item": text});
 
       var decodedJson = json.decode(json.encode(response.data));
       var result = SearchDao.fromJson(decodedJson);

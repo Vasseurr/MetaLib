@@ -53,6 +53,7 @@ class AuthController extends GetxController with StateMixin {
 
     if (response.status!) {
       await HiveManager.setStringValue(HiveKeys.USERID, response.userId!);
+      await HiveManager.setStringValue(HiveKeys.USERNAME, response.userName!);
       await HiveManager.setStringValue(HiveKeys.FIRSTNAME, response.firstName!);
       await HiveManager.setStringValue(HiveKeys.SURNAME, response.surname!);
       await HiveManager.setStringValue(HiveKeys.PHONE, response.phoneNumber!);
