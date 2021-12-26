@@ -13,8 +13,8 @@ class Library {
   int? libId;
   String? name;
   String? imgPath;
-  String? currentCapacity;
-  String? totalCapacity;
+  int? currentCapacity;
+  int? totalCapacity;
   String? address;
   String? phoneNumber;
   bool? isAvailable;

@@ -8,7 +8,10 @@ import 'package:getx_starter/core/init/cache/hive_manager.dart';
 import 'package:getx_starter/view/home/model/DAO/search_dao.dart';
 import 'package:getx_starter/view/home/model/DTO/attend_library_dto.dart';
 import 'package:getx_starter/view/home/model/DTO/leave_library_dto.dart';
+import 'package:getx_starter/view/home/model/DTO/library_dto.dart';
 import 'package:getx_starter/view/home/repository/home_repository.dart';
+import 'package:getx_starter/view/home/ui/book.dart';
+import 'package:getx_starter/view/home/ui/log.dart';
 
 class HomeController extends GetxController {
   final HomeRepository _homeRepository;
@@ -19,6 +22,9 @@ class HomeController extends GetxController {
   final _isOpened = false.obs;
   final _bookId = 0.obs;
   var _isLoading = false.obs;
+  var _libraries = <Library>[].obs;
+  var _logs = new Log().obs;
+  var _books = <Book>[].obs;
   var _searchResults = new SearchDao().obs;
   var _isResultEmpty = false.obs;
 
@@ -36,6 +42,15 @@ class HomeController extends GetxController {
 
   set isLoading(value) => _isLoading.value = value;
   get isLoading => _isLoading.value;
+
+  set libraries(value) => _libraries.value = value;
+  get libraries => _libraries.value;
+
+  set logs(value) => _logs.value = value;
+  get logs => _logs.value;
+
+  set books(value) => _books.value = value;
+  get books => _books.value;
 
   set searchResults(value) => _searchResults.value = value;
   get searchResults => _searchResults.value;
@@ -60,6 +75,9 @@ class HomeController extends GetxController {
     if (!response.status!) {
       _isLoading.value = false;
       Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    } else {
+      libraries = response.libraries;
+      _isLoading.value = false;
     }
   }
 
@@ -73,6 +91,9 @@ class HomeController extends GetxController {
     if (!response.status!) {
       _isLoading.value = false;
       Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    } else {
+      logs = response.logs;
+      _isLoading.value = false;
     }
   }
 
@@ -85,6 +106,9 @@ class HomeController extends GetxController {
     if (!response.status!) {
       _isLoading.value = false;
       Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    } else {
+      books = response.books;
+      _isLoading.value = false;
     }
   }
 
@@ -135,11 +159,12 @@ class HomeController extends GetxController {
 
     // Utils.instance.showSnackBar(context, content: response.textFromApi!);
     if (response.status!) {
-      _searchResults.value = response;
+      _books.value = response.books!.cast<Book>();
       _isResultEmpty.value = false;
       _isLoading.value = false;
     } else {
       _isResultEmpty.value = true;
+      _isLoading.value = false;
     }
   }
 }

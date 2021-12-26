@@ -45,6 +45,7 @@ dependencies:
   animated_bottom_navigation_bar: ^0.3.2
   bottom_navy_bar: ^6.0.0
   percent_indicator: ^3.4.0
+  cached_network_image: ^3.2.0
 
 dev_dependencies:
   flutter_test:

@@ -43,18 +43,18 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             onItemSelected: (index) => setState(() {
               _homeController.tabIndex = index;
               Get.toNamed(Routes.HOME);
-              /* switch (index) {
+              /*switch (index) {
                 case 0:
-                  Get.offAndToNamed(Routes.HOME);
+                  _homeController.getLibraries(context);
                   break;
                 case 1:
-                  Get.toNamed(Routes.BOOK);
+                  _homeController.getBooks(context);
                   break;
                 case 2:
-                  Get.toNamed(Routes.LOG);
+                  _homeController.getLogs(context);
                   break;
                 case 3:
-                  Get.toNamed(Routes.PROFILE);
+                  // Get.toNamed(Routes.PROFILE);
                   break;
               }*/
             }),

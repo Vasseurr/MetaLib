@@ -44,7 +44,7 @@ class HomeService with HomeServiceBase {
 
   @override
   Future<LibraryDao> getLibraries() async {
-    LibraryDao _libraryDao = new LibraryDao();
+    LibraryDao _libraryDao = LibraryDao();
 
     try {
       response = await _dio.get("/api/libraries");
