@@ -7,6 +7,7 @@ import 'package:getx_starter/view/auth/ui/register_page.dart';
 import 'package:getx_starter/view/home/bindings/home_binding.dart';
 import 'package:getx_starter/view/home/ui/book.dart';
 import 'package:getx_starter/view/home/ui/book_detail.dart';
+import 'package:getx_starter/view/home/ui/edit_profile.dart';
 import 'package:getx_starter/view/home/ui/home.dart';
 import 'package:getx_starter/view/home/ui/lib_detail.dart';
 import 'package:getx_starter/view/home/ui/log.dart';
@@ -34,6 +35,10 @@ class AppPages {
     GetPage(
         name: Routes.LIB_DETAIL,
         page: () => LibDetail(),
+        binding: HomeBinding()),
+    GetPage(
+        name: Routes.EDIT_PROFILE,
+        page: () => EditProfile(),
         binding: HomeBinding()),
   ];
 }

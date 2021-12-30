@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_starter/core/components/buttons/custom_button.dart';
-import 'package:getx_starter/core/components/utils/utils.dart';
+import 'package:getx_starter/core/components/text/text_form_field.dart';
 import 'package:getx_starter/core/components/widgets/custom_scaffold_with_animated_fab.dart';
 import 'package:getx_starter/core/constants/hive_keys.dart';
 import 'package:getx_starter/core/extension/context_extension.dart';
@@ -12,27 +12,22 @@ import 'package:getx_starter/core/routes/app_routes.dart';
 import 'package:getx_starter/view/home/controller/home_controller.dart';
 
 //class ProfilePage extends GetView<HomeController> {
-class ProfilePage extends StatelessWidget {
+class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String imageLink =
-        "https://www.seekpng.com/png/detail/1010-10108361_person-icon-circle.png";
-    return
-        //GetX<HomeController>(
-        //    initState: (state) {},
-        //    builder: (_) {
-        // return
-        Container(
-            margin: context.marginWidthLow,
-            child: Get.find<HomeController>().checkUserSession() == true
-                //child: _.checkUserSession() == true
-                ? infos(context)
-                : authButtons(context));
-
-    //   });
+    return CustomScaffold(
+      body: Container(
+          height: double.infinity,
+          width: double.infinity,
+          margin: context.marginWidthLow,
+          child: Get.find<HomeController>().checkUserSession() == true
+              //child: _.checkUserSession() == true
+              ? infos(context)
+              : authButtons(context)),
+    );
   }
 
-  Column infos(BuildContext context) {
+  infos(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -54,25 +49,10 @@ class ProfilePage extends StatelessWidget {
             margin: EdgeInsets.only(
                 left: context.getWidth * 0.15, right: context.getWidth * 0.15),
             child: VasseurrBttn(
-                buttonText: "Profil Düzenle",
+                buttonText: "Kaydet",
                 buttonColor: context.specialBlack,
                 borderColor: context.specialBlack,
-                onPressed: () {
-                  Get.toNamed(Routes.EDIT_PROFILE);
-                })),
-        Container(
-            margin: EdgeInsets.only(
-                left: context.getWidth * 0.15, right: context.getWidth * 0.15),
-            child: VasseurrBttn(
-                buttonText: "Çıkış Yap",
-                buttonColor: context.specialBlack,
-                borderColor: context.specialBlack,
-                onPressed: () {
-                  Get.find<HomeController>().isLogined = false;
-                  Utils.instance.showSnackBar(context,
-                      content: "Başarıyla çıkış yapıldı");
-                  Get.find<HomeController>().tabIndex = 0;
-                })),
+                onPressed: () {})),
       ],
     );
   }
@@ -122,7 +102,25 @@ class ProfilePage extends StatelessWidget {
             SizedBox(width: context.getWidth * 0.15),
             SizedBox(
                 width: context.getWidth * 0.4,
-                child: Text(value, style: TextStyle(color: Colors.white)))
+                child: VasseurrTFF(
+                  fillColor: Colors.transparent,
+                  textColor: Colors.black,
+                  radius: 8,
+                  borderColor: Colors.transparent,
+                  borderWidth: 0.5,
+                  hintText: value,
+                  hintColor: Colors.white,
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Bu alan zorunludur!";
+                    }
+                  },
+                  onSaved: (value) {
+                    // _registerDto.email = value;
+                  },
+                ))
           ],
         ),
       ),
