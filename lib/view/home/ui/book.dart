@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:getx_starter/core/components/text/text_form_field.dart';
 import 'package:getx_starter/core/components/widgets/custom_scaffold_with_animated_fab.dart';
@@ -15,6 +17,7 @@ class Books extends GetView<HomeController> {
 
   String searchText = "";
   var _formKey = GlobalKey<FormState>();
+  String barcode = "";
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,9 @@ class Books extends GetView<HomeController> {
                       itemCount: _.books.length,
                     ),
                   )
-                : Center(child: CircularProgressIndicator())
+                : Container(
+                    margin: EdgeInsets.only(top: context.getHeight * 0.4),
+                    child: Center(child: CircularProgressIndicator()))
           ],
         );
       },
@@ -69,7 +74,7 @@ class Books extends GetView<HomeController> {
                         borderColor: Colors.white,
                         fillColor: Colors.white,
                         hintColor: context.specialBrown,
-                        hintText: "Kitap Ara",
+                        hintText: "Kitap Ara veya barkod okut",
                         onSaved: (value) => searchText = value!,
                       ),
                     ),
@@ -84,6 +89,13 @@ class Books extends GetView<HomeController> {
                       }
                     },
                     child: Icon(Icons.search, color: context.specialBrown),
+                  ),
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () =>
+                        barcodeScanning(Get.find<HomeController>(), context),
+                    child: Icon(Icons.camera_alt, color: context.specialBrown),
                   ),
                 ),
               ],
@@ -152,5 +164,20 @@ class Books extends GetView<HomeController> {
         ),
       ),
     );
+  }
+
+  Future barcodeScanning(HomeController _, BuildContext context) async {
+    String barcodeScanRes;
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+      FlutterBarcodeScanner.getBarcodeStreamReceiver(
+              "#ff6666", "Cancel", false, ScanMode.DEFAULT)!
+          .listen((barcode) async {
+        await _.searchBooks(barcode);
+      });
+    } on PlatformException catch (e) {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
   }
 }

@@ -8,6 +8,7 @@ import 'package:getx_starter/view/home/bindings/home_binding.dart';
 import 'package:getx_starter/view/home/ui/book.dart';
 import 'package:getx_starter/view/home/ui/book_detail.dart';
 import 'package:getx_starter/view/home/ui/home.dart';
+import 'package:getx_starter/view/home/ui/lib_detail.dart';
 import 'package:getx_starter/view/home/ui/log.dart';
 import 'package:getx_starter/view/home/ui/profile.dart';
 
@@ -29,6 +30,10 @@ class AppPages {
     GetPage(
         name: Routes.BOOK_DETAIL,
         page: () => BookDetail(),
+        binding: HomeBinding()),
+    GetPage(
+        name: Routes.LIB_DETAIL,
+        page: () => LibDetail(),
         binding: HomeBinding()),
   ];
 }

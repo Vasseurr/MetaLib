@@ -38,7 +38,7 @@ class BookDetail extends GetView<HomeController> {
 
   Container image(BuildContext context, String path) {
     return Container(
-      height: context.getHeight * 0.4,
+      height: context.getHeight * 0.3,
       margin: EdgeInsets.only(top: context.getHeight * 0.05),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),

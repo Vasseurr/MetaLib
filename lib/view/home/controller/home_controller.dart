@@ -5,13 +5,15 @@ import 'package:get/get.dart';
 import 'package:getx_starter/core/components/utils/utils.dart';
 import 'package:getx_starter/core/constants/hive_keys.dart';
 import 'package:getx_starter/core/init/cache/hive_manager.dart';
+import 'package:getx_starter/core/routes/app_routes.dart';
+import 'package:getx_starter/view/home/model/DAO/log_dao.dart';
 import 'package:getx_starter/view/home/model/DAO/search_dao.dart';
 import 'package:getx_starter/view/home/model/DTO/attend_library_dto.dart';
 import 'package:getx_starter/view/home/model/DTO/book_dto.dart';
 import 'package:getx_starter/view/home/model/DTO/leave_library_dto.dart';
 import 'package:getx_starter/view/home/model/DTO/library_dto.dart';
+import 'package:getx_starter/view/home/model/DTO/log_dto.dart';
 import 'package:getx_starter/view/home/repository/home_repository.dart';
-import 'package:getx_starter/view/home/ui/log.dart';
 
 class HomeController extends GetxController {
   final HomeRepository _homeRepository;
@@ -23,10 +25,12 @@ class HomeController extends GetxController {
   final _bookId = 0.obs;
   var _isLoading = false.obs;
   var _libraries = <Library>[].obs;
-  var _logs = new Log().obs;
+  var _logs = LogDao().obs;
   var _books = <Book>[].obs;
   var _searchResults = new SearchDao().obs;
   var _isResultEmpty = false.obs;
+  var _isAttended = false.obs;
+  var _isLogined = false.obs;
 
   set userName(value) => _userName.value = value;
   get userName => _userName.value;
@@ -58,10 +62,17 @@ class HomeController extends GetxController {
   set isResultEmpty(value) => _isResultEmpty.value = value;
   get isResultEmpty => _isResultEmpty.value;
 
+  set isAttended(value) => _isAttended.value = value;
+  get isAttended => _isAttended.value;
+
+  set isLogined(value) => _isLogined.value = value;
+  get isLogined => _isLogined.value;
+
   checkUserSession() {
     var user = HiveManager.getStringValue(HiveKeys.USERID);
 
-    if (user != null) return true;
+    // ignore: unrelated_type_equality_checks
+    if (user != null && _isLogined == true) return true;
 
     return false;
   }
@@ -84,17 +95,20 @@ class HomeController extends GetxController {
   getLogs(BuildContext context) async {
     _isLoading.value = true;
 
-    var userId = HiveManager.getStringValue(HiveKeys.USERID);
-    var response = await _homeRepository.getLogs(int.parse(userId!));
+    if (checkUserSession()) {
+      var userId = HiveManager.getStringValue(HiveKeys.USERID);
+      var response = await _homeRepository.getLogs(int.parse(userId!));
 
-    // Utils.instance.showSnackBar(context, content: response.textFromApi!);
-    if (!response.status!) {
-      _isLoading.value = false;
-      Utils.instance.showSnackBar(context, content: response.textFromApi!);
-    } else {
-      logs = response.logs;
-      _isLoading.value = false;
+      // Utils.instance.showSnackBar(context, content: response.textFromApi!);
+      if (!response.status!) {
+        _isLoading.value = false;
+        Utils.instance.showSnackBar(context, content: response.textFromApi!);
+      } else {
+        logs = response;
+        _isLoading.value = false;
+      }
     }
+    _isLoading.value = false;
   }
 
   getBooks(BuildContext context) async {
@@ -124,11 +138,13 @@ class HomeController extends GetxController {
     var response = await _homeRepository.attendLibrary(attendLibraryDto);
 
     // Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    Utils.instance.showSnackBar(context, content: response.textFromApi!);
     if (!response.status!) {
       _isLoading.value = false;
-      Utils.instance.showSnackBar(context, content: response.textFromApi!);
     } else {
+      _isAttended.value = true;
       HiveManager.setStringValue(HiveKeys.LOGID, response.logId.toString());
+      Get.toNamed(Routes.HOME);
     }
   }
 
@@ -146,9 +162,12 @@ class HomeController extends GetxController {
     var response = await _homeRepository.leaveLibrary(leaveLibraryDto);
 
     // Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    Utils.instance.showSnackBar(context, content: response.textFromApi!);
     if (!response.status!) {
       _isLoading.value = false;
-      Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    } else {
+      _isAttended.value = false;
+      Get.toNamed(Routes.HOME);
     }
   }
 

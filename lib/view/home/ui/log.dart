@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_starter/core/components/widgets/custom_scaffold_with_animated_fab.dart';
 import 'package:getx_starter/core/extension/context_extension.dart';
 import 'package:getx_starter/view/home/controller/home_controller.dart';
 
@@ -9,48 +8,66 @@ class Log extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return GetX<HomeController>(
       initState: (state) async {
-        await Get.find<HomeController>().getLogs(context);
+        if (Get.find<HomeController>().checkUserSession()) {
+          Get.find<HomeController>().getLogs(context);
+        }
       },
       builder: (_) {
-        return Get.find<HomeController>().checkUserSession() == false
-            ? const Center(
-                child: Text(
-                "Lütfen giriş yapınız",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ))
-            : _.isLoading == false
-                ? Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        tableHeader(),
-                        //SizedBox(height: context.getHeight * 0.03),
-                        Expanded(
-                          child: ListView.builder(
-                            itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  SizedBox(height: context.getHeight * 0.03),
-                                  tableRows(_.logs[index].enterDate, "GİRİŞ",
-                                      _.logs[index].libName, Colors.green),
-                                  SizedBox(height: context.getHeight * 0.03),
-                                  tableRows(_.logs[index].leaveDate, "ÇIKIŞ",
-                                      _.logs[index].libName, Colors.white),
-                                ],
-                              );
-                            },
-                            itemCount: _.logs.length,
-                          ),
-                        ),
-                        /*   tableRows("27/10/2021", "GİRİŞ", "Fatih Kütüphanesi",
+        return _.isLoading == false
+            ? Get.find<HomeController>().checkUserSession() == false
+                ? const Center(
+                    child: Text(
+                    "Lütfen giriş yapınız",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ))
+                : Get.find<HomeController>().logs.logs.length == 0
+                    ? const Center(
+                        child: Text(
+                        "Herhangi bir log bilgisi bulunmamaktadır",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ))
+                    : Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            tableHeader(),
+                            //SizedBox(height: context.getHeight * 0.03),
+                            Expanded(
+                              child: ListView.builder(
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                    children: [
+                                      SizedBox(
+                                          height: context.getHeight * 0.03),
+                                      tableRows(
+                                          _.logs.logs[index].enterDate,
+                                          "GİRİŞ",
+                                          _.logs.logs[index].libName,
+                                          Colors.green),
+                                      SizedBox(
+                                          height: context.getHeight * 0.03),
+                                      _.logs.logs[index].leaveDate == ""
+                                          ? const SizedBox()
+                                          : tableRows(
+                                              _.logs.logs[index].leaveDate,
+                                              "ÇIKIŞ",
+                                              _.logs.logs[index].libName,
+                                              Colors.white),
+                                    ],
+                                  );
+                                },
+                                itemCount: _.logs.logs.length,
+                              ),
+                            ),
+                            /*   tableRows("27/10/2021", "GİRİŞ", "Fatih Kütüphanesi",
                         Colors.green),
                     SizedBox(height: context.getHeight * 0.03),
                     tableRows("28/10/2021", "ÇIKIŞ", "Fatih Kütüphanesi",
                         Colors.red),*/
-                      ],
-                    ),
-                  )
-                : const Center(child: CircularProgressIndicator());
+                          ],
+                        ),
+                      )
+            : const Center(child: CircularProgressIndicator());
       },
     );
   }

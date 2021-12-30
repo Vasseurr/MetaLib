@@ -63,7 +63,8 @@ class HomeService with HomeServiceBase {
     LogDao _logDao = new LogDao();
 
     try {
-      response = await _dio.get("/api/logs", queryParameters: {"id": userId});
+      response =
+          await _dio.get("/api/logs", queryParameters: {"userId": userId});
 
       var decodedJson = json.decode(json.encode(response.data));
       var result = LogDao.fromJson(decodedJson);

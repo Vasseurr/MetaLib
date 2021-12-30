@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_starter/core/components/buttons/custom_button.dart';
+import 'package:getx_starter/core/components/utils/utils.dart';
 import 'package:getx_starter/core/components/widgets/custom_scaffold_with_animated_fab.dart';
 import 'package:getx_starter/core/constants/hive_keys.dart';
 import 'package:getx_starter/core/extension/context_extension.dart';
@@ -64,7 +65,12 @@ class ProfilePage extends StatelessWidget {
                 buttonText: "Çıkış Yap",
                 buttonColor: context.specialBlack,
                 borderColor: context.specialBlack,
-                onPressed: () {})),
+                onPressed: () {
+                  Get.find<HomeController>().isLogined = false;
+                  Utils.instance.showSnackBar(context,
+                      content: "Başarıyla çıkış yapıldı");
+                  Get.find<HomeController>().tabIndex = 0;
+                })),
       ],
     );
   }

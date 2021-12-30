@@ -5,7 +5,10 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_starter/core/constants/hive_keys.dart';
 import 'package:getx_starter/core/extension/context_extension.dart';
+import 'package:getx_starter/core/init/cache/hive_manager.dart';
+import 'package:getx_starter/core/routes/app_routes.dart';
 import 'package:getx_starter/view/home/controller/home_controller.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -18,10 +21,10 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return GetX<HomeController>(
       initState: (state) async {
-        await _.getLibraries(context);
-        await _.getBooks(context);
+        _.getLibraries(context);
+        _.getBooks(context);
         if (_.checkUserSession() == true) {
-          await _.getLogs(context);
+          _.getLogs(context);
         }
       },
       builder: (_) {
@@ -51,91 +54,102 @@ class HomePage extends GetView<HomeController> {
     //String i2 = "https://istanbul.ktb.gov.tr/Resim/366718,2jpg.png?0";
     double percent =
         _.libraries[index].currentCapacity / _.libraries[index].totalCapacity;
-    return Container(
-      margin: EdgeInsets.only(
-          bottom: context.getHeight * 0.02,
-          left: context.getWidth * 0.01,
-          right: context.getWidth * 0.01),
-      child: Stack(
-        children: [
-          CachedNetworkImage(
-            imageUrl: _.libraries[index].imgPath,
-            imageBuilder: (context, imageProvider) {
-              return Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                    /* colorFilter:
-                        ColorFilter.mode(Colors.red, BlendMode.colorBurn)*/
+    return InkWell(
+      onTap: () {
+        HiveManager.setStringValue(
+            HiveKeys.LIBRARYID, _.libraries[index].libId.toString());
+        Get.toNamed(Routes.LIB_DETAIL);
+      },
+      child: Container(
+        margin: EdgeInsets.only(
+            bottom: context.getHeight * 0.02,
+            left: context.getWidth * 0.01,
+            right: context.getWidth * 0.01),
+        child: Stack(
+          children: [
+            CachedNetworkImage(
+              imageUrl: _.libraries[index].imgPath,
+              imageBuilder: (context, imageProvider) {
+                return Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                      /* colorFilter:
+                          ColorFilter.mode(Colors.red, BlendMode.colorBurn)*/
+                    ),
+                    gradient: LinearGradient(
+                        begin: Alignment.bottomRight,
+                        end: Alignment.topLeft,
+                        colors: [Colors.yellow.shade900, context.specialRed]),
                   ),
-                  gradient: LinearGradient(
-                      begin: Alignment.bottomRight,
-                      end: Alignment.topLeft,
-                      colors: [Colors.yellow.shade900, context.specialRed]),
-                ),
-              );
-            },
-/*placeholder: (context, url) =>
-                Center(child: CircularProgressIndicator()),*/
-            errorWidget: (context, url, error) =>
-                Center(child: Icon(Icons.error)),
-          ),
-          Container(
-            color: Colors.black45,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                _.libraries[index].name,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold),
-              ),
-              CircularPercentIndicator(
-                circularStrokeCap: CircularStrokeCap.round,
-                animation: true,
-                animationDuration: 1200,
-                radius: 90.0,
-                lineWidth: 13.0,
-                percent: percent,
-                //  header: new Text("Doluluk oranı",
-                //      style: TextStyle(
-                //          color: Colors.white, fontWeight: FontWeight.bold)),
-                center: Text(
-                  (100 * percent).toStringAsFixed(0) + ' %',
+                );
+              },
+              /*placeholder: (context, url) =>
+                  Center(child: CircularProgressIndicator()),*/
+              errorWidget: (context, url, error) =>
+                  Center(child: Icon(Icons.error)),
+            ),
+            Container(
+              color: Colors.black45,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  _.libraries[index].name,
                   style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold),
                 ),
-                backgroundColor: Colors.white,
-                progressColor: context.specialGreen,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      Text(_.libraries[index].totalCapacity.toString(),
-                          style: TextStyle(color: Colors.white, fontSize: 14)),
-                      Text("Toplam Kapasite",
-                          style: TextStyle(color: Colors.white, fontSize: 10)),
-                    ],
+                CircularPercentIndicator(
+                  circularStrokeCap: CircularStrokeCap.round,
+                  animation: true,
+                  animationDuration: 1200,
+                  radius: 90.0,
+                  lineWidth: 13.0,
+                  percent: percent,
+                  //  header: new Text("Doluluk oranı",
+                  //      style: TextStyle(
+                  //          color: Colors.white, fontWeight: FontWeight.bold)),
+                  center: Text(
+                    (100 * percent).toStringAsFixed(0) + ' %',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
-                  Column(
-                    children: [
-                      Text(_.libraries[index].currentCapacity.toString(),
-                          style: TextStyle(color: Colors.white, fontSize: 14)),
-                      Text("Anlık Kapasite",
-                          style: TextStyle(color: Colors.white, fontSize: 10)),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          )
-        ],
+                  backgroundColor: Colors.white,
+                  progressColor: context.specialGreen,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        Text(_.libraries[index].totalCapacity.toString(),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 14)),
+                        Text("Toplam Kapasite",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 10)),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(_.libraries[index].currentCapacity.toString(),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 14)),
+                        Text("Anlık Kapasite",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 10)),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -8,6 +8,7 @@ import 'package:getx_starter/core/routes/app_routes.dart';
 import 'package:getx_starter/view/auth/model/DTO/login_dto.dart';
 import 'package:getx_starter/view/auth/model/DTO/register_dto.dart';
 import 'package:getx_starter/view/auth/repository/auth_repository.dart';
+import 'package:getx_starter/view/home/controller/home_controller.dart';
 
 class AuthController extends GetxController with StateMixin {
   final AuthRepository _authRepository;
@@ -63,6 +64,9 @@ class AuthController extends GetxController with StateMixin {
       //Utils.instance.showSnackBar(context, content: response.textFromApi!);
       //change(null, status: RxStatus.success());
       isLoading = false;
+      Get.find<HomeController>().getLogs(context);
+      Get.find<HomeController>().isLogined = true;
+
       Get.offAndToNamed(Routes.HOME);
     }
     isLoading = false;

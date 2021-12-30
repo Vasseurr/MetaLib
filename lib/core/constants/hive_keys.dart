@@ -8,5 +8,5 @@ enum HiveKeys {
   ADDRESS,
   BOOKID,
   LIBRARYID,
-  LOGID
+  LOGID,
 }
