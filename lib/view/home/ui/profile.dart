@@ -68,7 +68,7 @@ class ProfilePage extends StatelessWidget {
                 buttonColor: context.specialBlack,
                 borderColor: context.specialBlack,
                 onPressed: () {
-                  Get.find<HomeController>().isLogined = false;
+                  HiveManager.setStringValue(HiveKeys.ISLOGINED, "false");
                   Utils.instance.showSnackBar(context,
                       content: "Başarıyla çıkış yapıldı");
                   Get.find<HomeController>().tabIndex = 0;

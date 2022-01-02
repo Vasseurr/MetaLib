@@ -10,9 +10,13 @@ import 'package:getx_starter/core/extension/context_extension.dart';
 import 'package:getx_starter/core/init/cache/hive_manager.dart';
 import 'package:getx_starter/core/routes/app_routes.dart';
 import 'package:getx_starter/view/home/controller/home_controller.dart';
+import 'package:getx_starter/view/home/model/DAO/edit_profile.dart';
 
 //class ProfilePage extends GetView<HomeController> {
 class EditProfile extends StatelessWidget {
+  var _formKey = GlobalKey<FormState>();
+  EditProfileDto _editProfileDto = new EditProfileDto();
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -28,32 +32,45 @@ class EditProfile extends StatelessWidget {
   }
 
   infos(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Spacer(),
-        textField("Kullanıcı Adı",
-            HiveManager.getStringValue(HiveKeys.USERNAME) ?? "temp", context),
-        textField("İsim",
-            HiveManager.getStringValue(HiveKeys.FIRSTNAME) ?? "temp", context),
-        textField("Soyisim",
-            HiveManager.getStringValue(HiveKeys.SURNAME) ?? "temp", context),
-        textField("E-posta",
-            HiveManager.getStringValue(HiveKeys.EMAIL) ?? "temp", context),
-        textField("Telefon Numarası",
-            HiveManager.getStringValue(HiveKeys.PHONE) ?? "temp", context),
-        textField("Adres",
-            HiveManager.getStringValue(HiveKeys.ADDRESS) ?? "temp", context),
-        Spacer(),
-        Container(
-            margin: EdgeInsets.only(
-                left: context.getWidth * 0.15, right: context.getWidth * 0.15),
-            child: VasseurrBttn(
-                buttonText: "Kaydet",
-                buttonColor: context.specialBlack,
-                borderColor: context.specialBlack,
-                onPressed: () {})),
-      ],
+    return Form(
+      autovalidateMode: AutovalidateMode.always,
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Spacer(),
+          textField("Kullanıcı Adı",
+              HiveManager.getStringValue(HiveKeys.USERNAME) ?? "temp", context),
+          textField(
+              "İsim",
+              HiveManager.getStringValue(HiveKeys.FIRSTNAME) ?? "temp",
+              context),
+          textField("Soyisim",
+              HiveManager.getStringValue(HiveKeys.SURNAME) ?? "temp", context),
+          textField("E-posta",
+              HiveManager.getStringValue(HiveKeys.EMAIL) ?? "temp", context),
+          textField("Telefon Numarası",
+              HiveManager.getStringValue(HiveKeys.PHONE) ?? "temp", context),
+          textField("Adres",
+              HiveManager.getStringValue(HiveKeys.ADDRESS) ?? "temp", context),
+          Spacer(),
+          Container(
+              margin: EdgeInsets.only(
+                  left: context.getWidth * 0.15,
+                  right: context.getWidth * 0.15),
+              child: VasseurrBttn(
+                  buttonText: "Kaydet",
+                  buttonColor: context.specialBlack,
+                  borderColor: context.specialBlack,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      Get.find<HomeController>()
+                          .editProfile(_editProfileDto, context);
+                    }
+                  })),
+        ],
+      ),
     );
   }
 
@@ -104,7 +121,7 @@ class EditProfile extends StatelessWidget {
                 width: context.getWidth * 0.4,
                 child: VasseurrTFF(
                   fillColor: Colors.transparent,
-                  textColor: Colors.black,
+                  textColor: Colors.white,
                   radius: 8,
                   borderColor: Colors.transparent,
                   borderWidth: 0.5,
@@ -112,13 +129,32 @@ class EditProfile extends StatelessWidget {
                   hintColor: Colors.white,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
-                  validator: (value) {
+                  /*  validator: (value) {
                     if (value!.isEmpty) {
                       return "Bu alan zorunludur!";
                     }
-                  },
+                  },*/
                   onSaved: (value) {
-                    // _registerDto.email = value;
+                    switch (fieldName) {
+                      case "Kullanıcı Adı":
+                        _editProfileDto.userName = value;
+                        break;
+                      case "İsim":
+                        _editProfileDto.firstName = value;
+                        break;
+                      case "Soyisim":
+                        _editProfileDto.surname = value;
+                        break;
+                      case "E-posta":
+                        _editProfileDto.email = value;
+                        break;
+                      case "Telefon Numarası":
+                        _editProfileDto.phoneNumber = value;
+                        break;
+                      case "Adres":
+                        _editProfileDto.address = value;
+                        break;
+                    }
                   },
                 ))
           ],

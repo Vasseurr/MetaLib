@@ -9,4 +9,5 @@ enum HiveKeys {
   BOOKID,
   LIBRARYID,
   LOGID,
+  ISLOGINED
 }

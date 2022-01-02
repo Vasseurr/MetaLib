@@ -65,7 +65,7 @@ class AuthController extends GetxController with StateMixin {
       //change(null, status: RxStatus.success());
       isLoading = false;
       Get.find<HomeController>().getLogs(context);
-      Get.find<HomeController>().isLogined = true;
+      HiveManager.setStringValue(HiveKeys.ISLOGINED, "true");
 
       Get.offAndToNamed(Routes.HOME);
     }

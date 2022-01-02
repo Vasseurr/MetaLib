@@ -6,6 +6,7 @@ import 'package:getx_starter/core/components/utils/utils.dart';
 import 'package:getx_starter/core/constants/hive_keys.dart';
 import 'package:getx_starter/core/init/cache/hive_manager.dart';
 import 'package:getx_starter/core/routes/app_routes.dart';
+import 'package:getx_starter/view/home/model/DAO/edit_profile.dart';
 import 'package:getx_starter/view/home/model/DAO/log_dao.dart';
 import 'package:getx_starter/view/home/model/DAO/search_dao.dart';
 import 'package:getx_starter/view/home/model/DTO/attend_library_dto.dart';
@@ -30,7 +31,6 @@ class HomeController extends GetxController {
   var _searchResults = new SearchDao().obs;
   var _isResultEmpty = false.obs;
   var _isAttended = false.obs;
-  var _isLogined = false.obs;
 
   set userName(value) => _userName.value = value;
   get userName => _userName.value;
@@ -65,14 +65,11 @@ class HomeController extends GetxController {
   set isAttended(value) => _isAttended.value = value;
   get isAttended => _isAttended.value;
 
-  set isLogined(value) => _isLogined.value = value;
-  get isLogined => _isLogined.value;
-
   checkUserSession() {
     var user = HiveManager.getStringValue(HiveKeys.USERID);
-
+    var isLogined = HiveManager.getStringValue(HiveKeys.ISLOGINED);
     // ignore: unrelated_type_equality_checks
-    if (user != null && _isLogined == true) return true;
+    if (user != null && isLogined == "true") return true;
 
     return false;
   }
@@ -101,11 +98,9 @@ class HomeController extends GetxController {
 
       // Utils.instance.showSnackBar(context, content: response.textFromApi!);
       if (!response.status!) {
-        _isLoading.value = false;
         Utils.instance.showSnackBar(context, content: response.textFromApi!);
       } else {
         logs = response;
-        _isLoading.value = false;
       }
     }
     _isLoading.value = false;
@@ -183,6 +178,52 @@ class HomeController extends GetxController {
       _isLoading.value = false;
     } else {
       _isResultEmpty.value = true;
+      _isLoading.value = false;
+    }
+  }
+
+  editProfile(EditProfileDto editProfileDto, BuildContext context) async {
+    _isLoading.value = true;
+
+    editProfileDto.userId =
+        int.parse(HiveManager.getStringValue(HiveKeys.USERID)!);
+
+    editProfileDto.userName!.isEmpty
+        ? editProfileDto.userName =
+            HiveManager.getStringValue(HiveKeys.USERNAME)
+        : editProfileDto.userName;
+    editProfileDto.firstName!.isEmpty
+        ? HiveManager.getStringValue(HiveKeys.FIRSTNAME)
+        : editProfileDto.firstName;
+    editProfileDto.surname!.isEmpty
+        ? editProfileDto.surname = HiveManager.getStringValue(HiveKeys.SURNAME)
+        : editProfileDto.surname;
+    editProfileDto.email!.isEmpty
+        ? editProfileDto.email = HiveManager.getStringValue(HiveKeys.EMAIL)
+        : editProfileDto.email;
+    editProfileDto.phoneNumber!.isEmpty
+        ? editProfileDto.phoneNumber =
+            HiveManager.getStringValue(HiveKeys.PHONE)
+        : editProfileDto.phoneNumber;
+    editProfileDto.address!.isEmpty
+        ? editProfileDto.address = HiveManager.getStringValue(HiveKeys.ADDRESS)
+        : editProfileDto.address;
+
+    HiveManager.setStringValue(HiveKeys.USERNAME, editProfileDto.userName!);
+    HiveManager.setStringValue(HiveKeys.FIRSTNAME, editProfileDto.firstName!);
+    HiveManager.setStringValue(HiveKeys.SURNAME, editProfileDto.surname!);
+    HiveManager.setStringValue(HiveKeys.EMAIL, editProfileDto.email!);
+    HiveManager.setStringValue(HiveKeys.PHONE, editProfileDto.phoneNumber!);
+    HiveManager.setStringValue(HiveKeys.ADDRESS, editProfileDto.address!);
+
+    var response = await _homeRepository.editProfile(editProfileDto);
+
+    // Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    Utils.instance.showSnackBar(context, content: response.textFromApi!);
+    if (response.status!) {
+      _isLoading.value = false;
+      Get.toNamed(Routes.HOME);
+    } else {
       _isLoading.value = false;
     }
   }

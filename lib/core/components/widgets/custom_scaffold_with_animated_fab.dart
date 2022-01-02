@@ -28,6 +28,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
               end: Alignment.topLeft,
               colors: [Colors.yellow.shade900, context.specialRed])),
       child: Scaffold(
+          resizeToAvoidBottomInset: false, //new line
           backgroundColor: Colors.transparent,
           appBar: appBar(context),
           //  backgroundColor: context.specialBrown,

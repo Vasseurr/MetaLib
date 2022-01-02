@@ -4,11 +4,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:getx_starter/core/components/buttons/custom_button.dart';
 import 'package:getx_starter/core/components/text/text_form_field.dart';
+import 'package:getx_starter/core/constants/hive_keys.dart';
 import 'package:getx_starter/core/extension/context_extension.dart';
+import 'package:getx_starter/core/init/cache/hive_manager.dart';
 import 'package:getx_starter/core/routes/app_routes.dart';
 import 'package:getx_starter/view/auth/controller/auth_controller.dart';
 import 'package:getx_starter/view/auth/model/DTO/login_dto.dart';
 import 'package:getx_starter/view/home/controller/home_controller.dart';
+import 'package:hive/hive.dart';
 
 class LoginPage extends GetView<AuthController> {
   bool rememberMe = false;

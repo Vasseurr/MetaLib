@@ -1,4 +1,5 @@
 import 'package:getx_starter/view/home/model/DAO/book_dao.dart';
+import 'package:getx_starter/view/home/model/DAO/edit_profile.dart';
 import 'package:getx_starter/view/home/model/DAO/library_dao.dart';
 import 'package:getx_starter/view/home/model/DAO/log_dao.dart';
 import 'package:getx_starter/view/home/model/DAO/response_dao.dart';
@@ -21,4 +22,6 @@ abstract class HomeServiceBase {
   Future<ResponseDao> leaveLibrary(LeaveLibraryDto leaveLibraryDto);
 
   Future<SearchDao> searchBooks(String text);
+
+  Future<ResponseDao> editProfile(EditProfileDto editProfileDto);
 }

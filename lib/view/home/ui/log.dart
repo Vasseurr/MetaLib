@@ -9,7 +9,7 @@ class Log extends GetView<HomeController> {
     return GetX<HomeController>(
       initState: (state) async {
         if (Get.find<HomeController>().checkUserSession()) {
-          Get.find<HomeController>().getLogs(context);
+          await Get.find<HomeController>().getLogs(context);
         }
       },
       builder: (_) {
