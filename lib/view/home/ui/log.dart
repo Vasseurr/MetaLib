@@ -20,7 +20,8 @@ class Log extends GetView<HomeController> {
                     "Lütfen giriş yapınız",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ))
-                : Get.find<HomeController>().logs.logs.length == 0
+                : Get.find<HomeController>().logs == null ||
+                        Get.find<HomeController>().logs.logs.length == 0
                     ? const Center(
                         child: Text(
                         "Herhangi bir log bilgisi bulunmamaktadır",

@@ -11,7 +11,7 @@ class Utils {
       {required String title, required String content}) {
     showDialog(
       context: context,
-      builder: (_) => new AlertDialog(
+      builder: (_) => AlertDialog(
         title: Text(
           title,
           textAlign: TextAlign.center,
@@ -32,8 +32,11 @@ class Utils {
 
   void showSnackBar(BuildContext context, {required String content}) {
     final snackBar = SnackBar(
-        backgroundColor: context.colors.primary,
-        content: Text(content.toString()));
+        backgroundColor: context.specialRed,
+        content: Text(
+          content.toString(),
+          style: TextStyle(color: context.specialYellow),
+        ));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
