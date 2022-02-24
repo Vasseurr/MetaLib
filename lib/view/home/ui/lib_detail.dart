@@ -83,6 +83,7 @@ class LibDetail extends GetView<HomeController> {
         borderRadius: BorderRadius.circular(15),
         child: Image.network(
           path,
+          fit: BoxFit.cover,
           //height: context.getHeight * 0.8,
         ),
       ),

@@ -193,7 +193,8 @@ class HomeController extends GetxController {
             HiveManager.getStringValue(HiveKeys.USERNAME)
         : editProfileDto.userName;
     editProfileDto.firstName!.isEmpty
-        ? HiveManager.getStringValue(HiveKeys.FIRSTNAME)
+        ? editProfileDto.firstName =
+            HiveManager.getStringValue(HiveKeys.FIRSTNAME)
         : editProfileDto.firstName;
     editProfileDto.surname!.isEmpty
         ? editProfileDto.surname = HiveManager.getStringValue(HiveKeys.SURNAME)
